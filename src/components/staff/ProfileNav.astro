@@ -1,0 +1,103 @@
+---
+const navItems = [
+  { id: "especialidades", label: "Especialidades" },
+  { id: "formacion", label: "Formación" },
+  { id: "experiencia", label: "Experiencia" },
+  { id: "academica", label: "Actividad Académica" },
+  { id: "afiliacion", label: "Afiliación" }
+];
+---
+
+<nav class="sticky top-20 z-40 bg-white/95 backdrop-blur-md py-4 mb-8 -mx-6 px-6 md:mx-0 md:px-0 border-b border-gray-100 overflow-x-auto hide-scrollbar">
+  <ul class="flex items-center gap-6 lg:gap-8 min-w-max">
+    <li class="hidden md:block text-mc-dark text-sm font-bold tracking-widest uppercase mr-2">Perfil</li>
+    {navItems.map(item => (
+      <li>
+        <a 
+          href={`#${item.id}`} 
+          class="text-mc-medium hover:text-mc-primary text-sm font-medium transition-colors whitespace-nowrap data-nav-link"
+          data-target={item.id}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .nav-active {
+    color: #F26B41 !important;
+    position: relative;
+  }
+  
+  .nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: -17px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #F26B41;
+  }
+</style>
+
+<script>
+  const initScrollSpy = () => {
+    const links = document.querySelectorAll('.data-nav-link');
+    if (links.length === 0) return;
+
+    const sections = Array.from(links).map(link => {
+      const targetId = link.getAttribute('data-target');
+      return document.getElementById(targetId || '');
+    }).filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver((entries) => {
+      // Find the most visible section
+      const visibleSections = entries.filter(entry => entry.isIntersecting);
+      if (visibleSections.length > 0) {
+        // Sort by intersection ratio (highest first)
+        visibleSections.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const activeId = visibleSections[0].target.id;
+
+        links.forEach(link => {
+          if (link.getAttribute('data-target') === activeId) {
+            link.classList.add('nav-active');
+          } else {
+            link.classList.remove('nav-active');
+          }
+        });
+      }
+    }, {
+      rootMargin: '-120px 0px -60% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1]
+    });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Smooth scroll for the links
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('data-target');
+        const section = document.getElementById(targetId || '');
+        if (section) {
+          const yOffset = -100; // offset for the sticky header and nav
+          const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+  };
+
+  initScrollSpy();
+  document.addEventListener('astro:page-load', initScrollSpy);
+</script>

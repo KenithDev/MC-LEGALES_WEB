@@ -1,0 +1,255 @@
+---
+import type { Especialidad } from '../../data/especialidades';
+import ChecklistCategorias from './ChecklistCategorias.astro';
+import { WHATSAPP_NUMBER } from '../../data/especialidades';
+
+interface Props {
+  especialidad: Especialidad;
+}
+
+const { especialidad } = Astro.props;
+const { subSpecialties, title, heroImage, sidebarImage, sidebarObjectPosition, breakImage, breakQuote } = especialidad;
+
+if (!subSpecialties) {
+  throw new Error('SubSpecialtiesTabs requires an especialidad with subSpecialties');
+}
+---
+
+<div class="ecd-subspecialties" id="subspecialties-section">
+  <!-- Eyebrow/Intro -->
+  <div class="ecd-subspecialties__header">
+    <h3 class="ecd-subspecialties__eyebrow">Sub-especialidades dentro de {title}</h3>
+    
+    <!-- Tabs Nav -->
+    <div class="ecd-subspecialties__tabs" role="tablist">
+      {subSpecialties.map((sub, index) => (
+        <button
+          class={`ecd-subspecialties__tab ${index === 0 ? 'is-active' : ''}`}
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls={`panel-${sub.id}`}
+          id={`tab-${sub.id}`}
+          data-tab-target={sub.id}
+          data-whatsapp-msg={`Hola, me gustaría recibir más información sobre el servicio de ${title} – ${sub.name}.`}
+        >
+          {sub.name}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Panels -->
+  <div class="ecd-subspecialties__panels">
+    {subSpecialties.map((sub, index) => {
+      const whatsappMsg = `Hola, me gustaría recibir más información sobre el servicio de ${title} – ${sub.name}.`;
+      const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`;
+      
+      return (
+        <div
+          class={`ecd-subspecialties__panel ${index === 0 ? 'is-active' : ''}`}
+          role="tabpanel"
+          id={`panel-${sub.id}`}
+          aria-labelledby={`tab-${sub.id}`}
+          hidden={index !== 0}
+        >
+          <!-- Panel mini-header -->
+          <div class="ecd-subspecialties__panel-header">
+            <h2 class="ecd-subspecialties__panel-title">{sub.name}</h2>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" class="ecd-subspecialties__panel-cta">
+              CONSULTA ESTA ESPECIALIDAD &rarr;
+            </a>
+          </div>
+
+          <!-- Reused ChecklistCategorias component -->
+          <ChecklistCategorias
+            title={sub.name}
+            categories={sub.categories}
+            sidebarImage={sub.sidebarImage || sidebarImage}
+            sidebarObjectPosition={sidebarObjectPosition}
+            breakImage={sub.breakImage || breakImage}
+            breakQuote={breakQuote}
+          />
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .ecd-subspecialties {
+    background: #fff;
+    padding-top: 24px;
+  }
+
+  .ecd-subspecialties__header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px 24px;
+  }
+
+  .ecd-subspecialties__eyebrow {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5A6473;
+    margin-bottom: 24px;
+  }
+
+  /* Tabs styling (pills) */
+  .ecd-subspecialties__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-bottom: 1px solid #ECEAE8;
+    padding-bottom: 24px;
+  }
+
+  .ecd-subspecialties__tab {
+    padding: 10px 20px;
+    border: 1px solid #5A6473;
+    border-radius: 40px;
+    background: transparent;
+    color: #5A6473;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .ecd-subspecialties__tab:hover {
+    border-color: #363D48;
+    color: #363D48;
+  }
+
+  .ecd-subspecialties__tab.is-active {
+    background: #363D48;
+    border-color: #363D48;
+    color: #fff;
+  }
+
+  /* Panel Header */
+  .ecd-subspecialties__panel-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 48px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+  }
+
+  .ecd-subspecialties__panel-title {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(26px, 3vw, 30px);
+    font-weight: 400;
+    color: #363D48;
+    margin: 0;
+  }
+
+  .ecd-subspecialties__panel-cta {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #F26B41;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .ecd-subspecialties__panel-cta:hover {
+    opacity: 0.8;
+  }
+
+  /* Panels */
+  .ecd-subspecialties__panel {
+    display: none;
+  }
+  
+  .ecd-subspecialties__panel.is-active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .ecd-subspecialties__header {
+      padding: 0 24px 16px;
+    }
+    
+    .ecd-subspecialties__panel-header {
+      padding: 24px 24px 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ecd-subspecialties__tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -24px;
+      padding: 0 24px 16px;
+    }
+    .ecd-subspecialties__tabs::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function initTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.ecd-subspecialties__tab');
+    const panels = document.querySelectorAll<HTMLDivElement>('.ecd-subspecialties__panel');
+    const whatsappFloatBtn = document.getElementById('whatsapp-float-btn') as HTMLAnchorElement | null;
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach(p => {
+          p.classList.remove('is-active');
+          p.setAttribute('hidden', 'true');
+        });
+
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        
+        const targetId = tab.dataset.tabTarget;
+        const targetPanel = document.getElementById(`panel-${targetId}`);
+        if (targetPanel) {
+          targetPanel.classList.add('is-active');
+          targetPanel.removeAttribute('hidden');
+        }
+
+        // Update the floating WhatsApp button
+        if (whatsappFloatBtn) {
+          const msg = tab.dataset.whatsappMsg;
+          if (msg) {
+            const baseUrl = 'https://wa.me/51987208575?text=';
+            whatsappFloatBtn.href = baseUrl + encodeURIComponent(msg);
+          }
+        }
+
+        // Scroll to the header, offset for the fixed navbar
+        const header = document.querySelector('.ecd-subspecialties__header');
+        if (header) {
+          const y = header.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initTabs);
+  document.addEventListener('astro:page-load', initTabs);
+</script>

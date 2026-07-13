@@ -1,0 +1,329 @@
+---
+import Button from "../ui/Button.astro";
+---
+
+<section class="py-24 md:py-32 bg-mc-light" id="contacto">
+  <div class="container mx-auto px-6 md:px-12">
+    <div
+      class="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-20"
+    >
+      <!-- Text info (Left column) -->
+      <div class="w-full lg:w-5/12 flex flex-col justify-center">
+        <p
+          class="text-mc-primary text-[13px] uppercase tracking-[0.2em] mb-4 font-semibold"
+        >
+          CONTÁCTANOS
+        </p>
+        <h2
+          class="font-display font-light text-4xl md:text-5xl text-mc-dark mb-6"
+        >
+          Contáctanos ahora
+        </h2>
+        <div class="w-12 h-0.5 bg-mc-primary mb-8"></div>
+        <p class="text-mc-medium text-lg leading-relaxed mb-12 max-w-md">
+          Cuéntanos tu situación y uno de nuestros especialistas se pondrá en
+          contacto contigo a la brevedad.
+        </p>
+
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center gap-4 group">
+            <div
+              class="w-10 h-10 rounded-full bg-mc-primary flex items-center justify-center text-white shrink-0 transition-transform duration-300 group-hover:scale-110"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </div>
+            <span class="text-mc-medium font-medium">(51) 987 208 575</span>
+          </div>
+
+          <div class="flex items-center gap-4 group">
+            <div
+              class="w-10 h-10 rounded-full bg-mc-primary flex items-center justify-center text-white shrink-0 transition-transform duration-300 group-hover:scale-110"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
+                  d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
+              >
+            </div>
+            <a
+              href="mailto:odamian@mclegales.com"
+              class="text-mc-medium hover:text-mc-primary transition-colors"
+              >odamian@mclegales.com</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Form (Right column) -->
+      <div class="w-full lg:w-7/12 bg-white p-8 md:p-12 shadow-sm rounded-md">
+        <form
+          id="contact-form-servicios"
+          class="flex flex-col gap-6"
+          onsubmit="event.preventDefault();"
+        >
+          <!-- Name -->
+          <div class="form-group relative">
+            <label
+              for="nombres"
+              class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150"
+              >Nombres</label
+            >
+            <div class="relative overflow-hidden rounded-md">
+              <input
+                type="text"
+                id="nombres"
+                name="nombres"
+                class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft"
+                placeholder="Escribe tus nombres completos"
+                required
+              />
+              <div
+                class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"
+              >
+              </div>
+            </div>
+          </div>
+
+          <!-- Email & phone -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="form-group relative">
+              <label
+                for="email"
+                class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150"
+                >Correo electrónico</label
+              >
+              <div class="relative overflow-hidden rounded-md">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft"
+                  placeholder="ejemplo@correo.com"
+                  required
+                />
+                <div
+                  class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"
+                >
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group relative">
+              <label
+                for="telefono"
+                class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150"
+                >Número de teléfono</label
+              >
+              <div class="relative overflow-hidden rounded-md">
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft"
+                  placeholder="+51 999 999 999"
+                  required
+                />
+                <div
+                  class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"
+                >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Query details -->
+          <div class="form-group relative">
+            <label
+              for="consulta"
+              class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150"
+              >Detalle de tu consulta</label
+            >
+            <div class="relative overflow-hidden rounded-md">
+              <textarea
+                id="consulta"
+                name="consulta"
+                rows="4"
+                class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft resize-y min-h-30"
+                placeholder="Explícanos brevemente cómo podemos ayudarte..."
+                required></textarea>
+              <div
+                class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"
+              >
+              </div>
+            </div>
+          </div>
+
+          <!-- Consent checkboxes -->
+          <div class="flex flex-col gap-4 mt-2 mb-6">
+            <label
+              class="custom-checkbox flex items-start gap-3 cursor-pointer group"
+            >
+              <div
+                class="relative flex items-center justify-center w-5 h-5 mt-0.5 rounded border border-mc-medium shrink-0 bg-white transition-colors group-hover:border-mc-primary"
+              >
+                <input type="checkbox" required class="peer sr-only" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="absolute pointer-events-none opacity-0 scale-50 transition-all duration-200 ease-out peer-checked:opacity-100 peer-checked:scale-100 z-10"
+                  ><polyline points="20 6 9 17 4 12"></polyline></svg
+                >
+                <div
+                  class="absolute inset-0 bg-mc-primary scale-0 opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100 rounded-[3px]"
+                >
+                </div>
+              </div>
+              <span class="text-sm text-mc-medium leading-relaxed select-none">
+                Acepto y declaro haber leído las <a
+                  href="/politicas-de-privacidad"
+                  class="text-mc-primary underline underline-offset-2 hover:text-mc-primary-deep transition-colors"
+                  >Políticas de privacidad</a
+                >
+              </span>
+            </label>
+
+            <label
+              class="custom-checkbox flex items-start gap-3 cursor-pointer group"
+            >
+              <div
+                class="relative flex items-center justify-center w-5 h-5 mt-0.5 rounded border border-mc-medium shrink-0 bg-white transition-colors group-hover:border-mc-primary"
+              >
+                <input type="checkbox" required class="peer sr-only" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="absolute pointer-events-none opacity-0 scale-50 transition-all duration-200 ease-out peer-checked:opacity-100 peer-checked:scale-100 z-10"
+                  ><polyline points="20 6 9 17 4 12"></polyline></svg
+                >
+                <div
+                  class="absolute inset-0 bg-mc-primary scale-0 opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100 rounded-[3px]"
+                >
+                </div>
+              </div>
+              <span class="text-sm text-mc-medium leading-relaxed select-none">
+                Acepto que se me envíe la información solicitada a través de los
+                medios de contacto proporcionados y/o información adicional.
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit button (orange pill) -->
+          <Button
+            type="submit"
+            class="w-full bg-mc-primary! hover:bg-mc-primary-hover! text-lg py-4 rounded-full! group relative overflow-hidden"
+          >
+            <span class="relative z-10 btn-text transition-opacity duration-200"
+              >Enviar</span
+            >
+            <!-- Loading spinner -->
+            <svg
+              class="animate-spin h-5 w-5 text-white absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 btn-spinner transition-opacity duration-200"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </Button>
+
+          <!-- Success message -->
+          <div
+            class="success-message hidden bg-mc-light p-4 rounded-md border-l-4 border-mc-primary mt-2"
+          >
+            <p class="text-sm text-mc-dark">
+              Tu mensaje ha sido enviado exitosamente. Nos pondremos en contacto
+              contigo pronto.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  input:focus + .focus-line,
+  textarea:focus + .focus-line {
+    transform: scaleX(1);
+  }
+
+  .form-group:focus-within label {
+    color: var(--color-mc-primary-deep);
+  }
+</style>
+
+<script>
+  const form = document.getElementById(
+    "contact-form-servicios",
+  ) as HTMLFormElement;
+  const submitBtn = form?.querySelector('button[type="submit"]');
+  const btnText = submitBtn?.querySelector(".btn-text");
+  const btnSpinner = submitBtn?.querySelector(".btn-spinner");
+  const successMsg = form?.querySelector(".success-message");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (form.checkValidity()) {
+      if (btnText) btnText.classList.add("opacity-0");
+      if (btnSpinner) btnSpinner.classList.remove("opacity-0");
+
+      fetch("https://formsubmit.co/ajax/odamian@mclegales.com", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(() => {
+        if (btnSpinner) btnSpinner.classList.add("opacity-0");
+        if (btnText) btnText.classList.remove("opacity-0");
+
+        form.reset();
+        successMsg?.classList.remove("hidden");
+
+        setTimeout(() => {
+          successMsg?.classList.add("hidden");
+        }, 5000);
+      })
+      .catch((err) => {
+        console.error("Error al enviar el formulario", err);
+        if (btnSpinner) btnSpinner.classList.add("opacity-0");
+        if (btnText) btnText.classList.remove("opacity-0");
+        alert("Hubo un error al enviar tu mensaje. Por favor intenta más tarde.");
+      });
+    }
+  });
+</script>

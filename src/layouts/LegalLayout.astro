@@ -1,0 +1,372 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Section {
+  id: string;
+  roman: string;
+  title: string;
+}
+
+interface Props {
+  title: string;
+  documentName: string;
+  eyebrow?: string;
+  companyInfo?: string;
+  lastUpdated: string;
+  updateReason: string;
+  sections: Section[];
+}
+
+const { 
+  title, 
+  documentName, 
+  eyebrow = "Documentos legales", 
+  companyInfo, 
+  lastUpdated, 
+  updateReason, 
+  sections 
+} = Astro.props;
+---
+
+<Layout title={title} headerLight={true}>
+  <Header />
+
+  <main class="flex-grow pt-32 pb-24 bg-white relative" id="legal-content-wrapper">
+    <!-- Document header -->
+    <div class="container mx-auto px-6 md:px-12 mb-16 md:mb-24 mt-8">
+      <div class="max-w-4xl">
+        <p class="text-mc-light/80 uppercase tracking-widest text-sm font-semibold text-mc-medium mb-6">{eyebrow}</p>
+        <div class="w-16 h-1 bg-mc-primary mb-8"></div>
+        <h1 class="font-display font-light text-4xl md:text-[52px] leading-[1.1] text-mc-dark mb-6 tracking-tight">
+          {documentName}
+        </h1>
+        {companyInfo && <p class="text-mc-medium text-lg mb-12 font-medium">{companyInfo}</p>}
+        
+        <div class="bg-mc-light p-6 rounded-sm border-l-4 border-mc-primary/30 inline-block">
+          <p class="text-mc-soft text-sm font-medium mb-1">Última actualización: {lastUpdated}</p>
+          <p class="text-mc-soft text-sm">Motivo: {updateReason}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-24 relative items-start">
+        
+        <!-- Mobile TOC Button -->
+        <button id="mobile-toc-btn" class="lg:hidden w-full flex justify-between items-center bg-mc-light px-6 py-4 rounded-sm font-semibold text-mc-dark mb-8 border border-mc-dark/10">
+          <span>Índice del documento</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300" id="toc-chevron"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <!-- Left column: sticky TOC -->
+        <aside class="w-full lg:w-[320px] shrink-0 lg:sticky lg:top-30 hidden lg:block z-40 bg-white" id="legal-toc">
+          <div class="bg-mc-light rounded-sm p-6 max-h-[75vh] overflow-y-auto hidden-scrollbar shadow-sm border border-mc-dark/5">
+            <h3 class="font-bold text-mc-dark uppercase tracking-widest text-xs mb-6">Índice</h3>
+            <ul class="space-y-1">
+              {sections.map((section) => (
+                <li>
+                  <a href={`#${section.id}`} class="toc-link flex items-baseline gap-3 py-2 px-3 rounded transition-colors duration-200 text-sm hover:bg-white text-mc-medium hover:text-mc-dark group">
+                    <span class="toc-roman text-mc-primary font-bold min-w-6 group-hover:text-mc-primary-deep transition-colors">{section.roman}</span>
+                    <span class="leading-snug">{section.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Right column: content -->
+        <div class="w-full lg:max-w-[720px] legal-content shrink-0 pb-16">
+          <slot />
+          
+          <!-- Cross-links to other legal documents -->
+          <div class="mt-24 pt-12 border-t border-mc-dark/10">
+            <h3 class="font-display font-medium text-2xl text-mc-dark mb-6">Otros documentos legales</h3>
+            <ul class="doc-nav-list space-y-4 list-none pl-0">
+              <li>
+                <a href="/politicas-de-privacidad" class="inline-flex items-center gap-2 text-mc-dark hover:text-mc-primary transition-colors font-medium group">
+                  <span class="w-1.5 h-1.5 rounded-full bg-mc-primary"></span>
+                  Política de Privacidad y Protección de Datos
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="/politica-de-cookies" class="inline-flex items-center gap-2 text-mc-dark hover:text-mc-primary transition-colors font-medium group">
+                  <span class="w-1.5 h-1.5 rounded-full bg-mc-primary"></span>
+                  Política de Cookies
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="/terminos-y-condiciones" class="inline-flex items-center gap-2 text-mc-dark hover:text-mc-primary transition-colors font-medium group">
+                  <span class="w-1.5 h-1.5 rounded-full bg-mc-primary"></span>
+                  Términos y Condiciones
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* Global styles for legal content injected through the slot */
+  .legal-content section {
+    scroll-margin-top: 140px;
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid #ECEAE8;
+  }
+  
+  .legal-content section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .legal-content .section-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .legal-content .section-roman {
+    color: var(--color-mc-primary);
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .legal-content .section-roman::after {
+    content: ".";
+  }
+
+  .toc-roman::after {
+    content: ".";
+  }
+
+  .legal-content h2.section-title {
+    color: var(--color-mc-dark);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .legal-content h3 {
+    color: var(--color-mc-dark);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .legal-content p {
+    color: var(--color-mc-medium);
+    font-family: var(--font-body);
+    font-size: 1.025rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .legal-content ul, .legal-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  
+  .legal-content li {
+    color: var(--color-mc-medium);
+    font-size: 1.025rem;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .legal-content ul li::before {
+    content: "•";
+    color: var(--color-mc-primary);
+    position: absolute;
+    left: -1.25rem;
+    font-weight: bold;
+  }
+
+  /* The cross-links list already has its own bullet (span), so the
+     document list's automatic bullet is disabled here. */
+  .legal-content ul.doc-nav-list li::before {
+    content: none;
+  }
+
+  .legal-content ol {
+    list-style-type: decimal;
+  }
+
+  .legal-content a {
+    color: var(--color-mc-primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+  }
+  
+  .legal-content a:hover {
+    color: var(--color-mc-primary-deep);
+  }
+
+  .legal-content em {
+    font-style: italic;
+    color: #4A5260;
+  }
+  
+  .legal-content strong {
+    font-weight: 600;
+    color: var(--color-mc-dark);
+  }
+
+  /* Hide scrollbar for the TOC */
+  .hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hidden-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Active TOC state */
+  .toc-link.is-active {
+    background-color: white;
+    color: var(--color-mc-dark);
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  
+  /* Callout utilities */
+  .callout-odp {
+    background-color: var(--color-mc-light);
+    border-left: 3px solid var(--color-mc-primary);
+    padding: 1.5rem;
+    border-radius: 0 4px 4px 0;
+    margin: 2rem 0;
+  }
+  
+  .callout-odp p {
+    margin-bottom: 0.5rem;
+  }
+  .callout-odp p:last-child {
+    margin-bottom: 0;
+  }
+
+  .table-arco {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+  }
+  .table-arco th, .table-arco td {
+    padding: 1rem;
+    border-bottom: 1px solid #ECEAE8;
+    text-align: left;
+  }
+  .table-arco th {
+    font-weight: 600;
+    color: var(--color-mc-dark);
+    border-bottom: 2px solid var(--color-mc-dark);
+  }
+  .table-arco tr:last-child td {
+    border-bottom: none;
+  }
+
+  .callout-cta {
+    background-color: white;
+    border: 1px solid #ECEAE8;
+    padding: 2rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 3rem;
+  }
+</style>
+
+<script>
+  // Mobile TOC toggle
+  const tocBtn = document.getElementById('mobile-toc-btn');
+  const tocNav = document.getElementById('legal-toc');
+  const chevron = document.getElementById('toc-chevron');
+  
+  if (tocBtn && tocNav && chevron) {
+    tocBtn.addEventListener('click', () => {
+      tocNav.classList.toggle('hidden');
+      tocNav.classList.toggle('absolute');
+      tocNav.classList.toggle('top-[100%]');
+      tocNav.classList.toggle('left-0');
+      tocNav.classList.toggle('w-full');
+      tocNav.classList.toggle('shadow-xl');
+      chevron.classList.toggle('rotate-180');
+    });
+
+    // Close on link click in mobile
+    const links = tocNav.querySelectorAll('.toc-link');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 1024) { // lg breakpoint
+          tocNav.classList.add('hidden');
+          chevron.classList.remove('rotate-180');
+        }
+      });
+    });
+  }
+
+  // TOC scroll spy
+  const sections = document.querySelectorAll('.legal-content section');
+  const navLinks = document.querySelectorAll('.toc-link');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
+  };
+
+  const observerCallback = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+
+        navLinks.forEach(link => {
+          link.classList.remove('is-active');
+        });
+
+        const currentLink = document.querySelector(`.toc-link[href="#${id}"]`);
+        if (currentLink) {
+          currentLink.classList.add('is-active');
+          
+          // Scroll TOC to keep active item in view if it's scrollable
+          const tocContainer = currentLink.closest('.overflow-y-auto');
+          if (tocContainer) {
+            const linkRect = currentLink.getBoundingClientRect();
+            const containerRect = tocContainer.getBoundingClientRect();
+            
+            if (linkRect.bottom > containerRect.bottom || linkRect.top < containerRect.top) {
+              currentLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }
+        }
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+</script>

@@ -1,0 +1,317 @@
+---
+import CircularButton from '../ui/CircularButton.astro';
+
+const slides = [
+  {
+    image: "/images/staff/Omar Damián.webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Lealtad",
+    quote: "«Permanecemos al lado de nuestros clientes, construyendo relaciones de confianza y largo plazo».",
+    name: "Omar Alfredo Damián Medina",
+    role: "LÍDER DE OPERACIONES LEGALES"
+  },
+  {
+    image: "/images/staff/Juan Carlos Zevallos.webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Experiencia",
+    quote: "«Nuestro conocimiento permite anticipar escenarios y brindar soluciones sólidas y efectivas».",
+    name: "Juan Carlos Zevallos Roncagliolo",
+    role: "SENIOR EN OPERACIONES LEGALES"
+  },
+  {
+    image: "/images/staff/María Ruiz.webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Eficiencia",
+    quote: "«Optimizamos cada proceso para ofrecer respuestas claras, oportunas y de alto valor».",
+    name: "María del Rosario Ruíz Alarcón",
+    role: "SENIOR EN OPERACIONES LEGALES"
+  },
+  {
+    image: "/images/staff/Jason García-Blásquez.webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Compromiso",
+    quote: "«Asumimos cada asunto con dedicación, responsabilidad y enfoque en los resultados».",
+    name: "Jason García-Blásquez Wong",
+    role: "SENIOR EN OPERACIONES LEGALES"
+  },
+  {
+    image: "/images/staff/Erick Cáceres.webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Transparencia",
+    quote: "«Comunicamos con claridad cada paso, generando confianza y seguridad en nuestros clientes».",
+    name: "Erick Cáceres Buleje",
+    role: "ABOGADO ASOCIADO"
+  },
+  {
+    image: "/images/staff/Hugo Cuadros.webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Innovación",
+    quote: "«Buscamos nuevas formas de resolver desafíos, aportando soluciones modernas y estratégicas».",
+    name: "Hugo Cuadros Rodriguez",
+    role: "ABOGADO ASOCIADO"
+  },
+  {
+    image: "/images/staff/Leticia Villafuerte.webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Responsabilidad",
+    quote: "«Actuamos con seriedad y cuidado, cumpliendo cada compromiso asumido con nuestros clientes».",
+    name: "Leticia Villafuerte Alarcón",
+    role: "ABOGADA ASOCIADA"
+  },
+  {
+    image: "/images/staff/Valeria Sevillano(1).webp",
+    eyebrow: "Bienvenido/a a Mercado & Competencia",
+    value: "Trabajo en equipo",
+    quote: "«Unimos capacidades y experiencia para brindar un servicio integral y coordinado».",
+    name: "Valeria Sevillano Quispe",
+    role: "ABOGADA"
+  }
+];
+
+const mainServices = [
+  "Derecho de la Construcción",
+  "Derecho Inmobiliario",
+  "Derecho Municipal",
+  "Derecho Administrativo",
+  "Derecho Concursal",
+  "Derecho Penal y Procesal Penal"
+];
+---
+
+<section class="relative w-full h-screen min-h-150 overflow-hidden bg-mc-dark" id="hero-section">
+  <!-- Slides container -->
+  <div class="absolute inset-0 z-0" id="hero-slides">
+    {slides.map((slide, index) => (
+      <div 
+        class={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
+        data-slide={index}
+      >
+        <img
+          src={slide.image}
+          alt={`${slide.name} - ${slide.role}`}
+          class="w-full h-full object-contain object-top md:object-cover md:object-center origin-center transition-transform duration-6000 ease-linear ken-burns"
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- Dark gradient overlay -->
+  <div class="absolute inset-0 z-10 pointer-events-none bg-linear-to-t from-mc-dark/90 via-mc-dark/40 to-transparent lg:bg-linear-to-r lg:from-mc-dark/90 lg:via-mc-dark/50 lg:to-transparent"></div>
+
+  <!-- Overlaid content -->
+  <div class="relative z-20 container mx-auto px-6 md:px-12 h-full flex flex-col justify-end pb-20 sm:pb-24 md:pb-32">
+    <div class="max-w-3xl" aria-live="polite" id="hero-content">
+      {slides.map((slide, index) => (
+        <div class={`hero-text-block ${index === 0 ? 'block' : 'hidden'}`} data-text={index}>
+          <p class="text-white/80 text-xs sm:text-sm md:text-base mb-2 sm:mb-4 font-medium tracking-wide animate-fade-in-up-stagger-1">{slide.eyebrow}</p>
+          <h1 class="font-display font-light text-3xl sm:text-4xl md:text-7xl lg:text-8xl text-white mb-3 sm:mb-6 leading-[1.1] md:leading-[1.05] tracking-tight animate-fade-in-up-stagger-2">{slide.value}</h1>
+          <div class="w-12 sm:w-16 h-1 bg-mc-primary mb-4 sm:mb-8 animate-draw-line"></div>
+          <p class="text-white text-sm sm:text-base md:text-xl font-light mb-5 sm:mb-10 max-w-2xl leading-relaxed animate-fade-in-up-stagger-3">{slide.quote}</p>
+
+          <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6 animate-fade-in-up-stagger-4">
+            <CircularButton href="/staff" light class="whitespace-nowrap">Conoce al equipo</CircularButton>
+            <div>
+              <p class="text-white font-medium text-sm sm:text-base md:text-lg">{slide.name}</p>
+              <p class="text-mc-primary text-xs uppercase tracking-widest font-bold mt-1">{slide.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Carousel controls -->
+    <div class="absolute bottom-4 sm:bottom-8 left-6 md:left-12 right-6 md:right-12 flex items-center gap-2 sm:gap-4">
+      <button id="play-pause-btn" class="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border border-white/30 text-white hover:bg-white hover:text-mc-dark transition-colors focus:outline-none shrink-0" aria-label="Pausar carrusel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" class="pause-icon sm:w-[14px] sm:h-[14px]"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" class="play-icon hidden sm:w-[14px] sm:h-[14px]"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+      </button>
+
+      <div class="flex items-center gap-1 sm:gap-2 overflow-hidden" id="hero-indicators">
+        {slides.map((_, index) => (
+          <button
+            class="relative w-4 sm:w-12 h-1 bg-white/20 rounded-full overflow-hidden focus:outline-none indicator-btn shrink"
+            aria-label={`Ir al slide ${index + 1}`}
+            data-target={index}
+          >
+            <div class={`absolute top-0 left-0 h-full bg-mc-primary indicator-progress ${index === 0 ? 'w-full' : 'w-0'}`} data-progress={index}></div>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main services (below hero) -->
+<section class="bg-white py-12 md:py-20">
+  <div class="container mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0 border-t border-mc-dark/10">
+      {mainServices.map((service) => (
+        <a href="/servicios" class="group flex justify-between items-center py-6 border-b border-mc-dark/10 transition-colors duration-200 hover:border-mc-primary">
+          <span class="font-medium text-mc-dark text-lg group-hover:text-mc-primary transition-colors">{service}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mc-dark/30 group-hover:text-mc-primary transition-all duration-200 group-hover:translate-x-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+      ))}
+    </div>
+    <div class="mt-12 flex justify-end">
+      <a href="/servicios" class="inline-flex items-center gap-2 font-bold text-sm tracking-widest uppercase text-mc-dark hover:text-mc-primary transition-colors group">
+        VER TODOS LOS SERVICIOS
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200 group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero-specific animations */
+  .ken-burns {
+    transform: scale(1);
+  }
+  .is-active .ken-burns {
+    transform: scale(1.04);
+  }
+
+  /* Mobile uses object-contain (full image, no cropping), so the
+     Ken Burns zoom is disabled here to avoid artifacts. */
+  @media (max-width: 767px) {
+    .is-active .ken-burns {
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ken-burns {
+      transform: scale(1) !important;
+      transition: none !important;
+    }
+  }
+
+  .animate-fade-in-up-stagger-1 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; transform: translateY(16px); }
+  .animate-fade-in-up-stagger-2 { animation: fadeInUp 0.6s ease-out 0.1s forwards; opacity: 0; transform: translateY(16px); }
+  .animate-draw-line { animation: drawLine 0.6s ease-out 0.2s forwards; width: 0; }
+  .animate-fade-in-up-stagger-3 { animation: fadeInUp 0.6s ease-out 0.3s forwards; opacity: 0; transform: translateY(16px); }
+  .animate-fade-in-up-stagger-4 { animation: fadeInUp 0.6s ease-out 0.4s forwards; opacity: 0; transform: translateY(16px); }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes drawLine {
+    to {
+      width: 4rem; /* w-16 */
+    }
+  }
+</style>
+
+<script>
+  let currentSlide = 0;
+  let isPlaying = true;
+  let progress = 0;
+  let animationFrameId: number;
+  let lastTime: number;
+  const slideDuration = 6000;
+
+  const slides = document.querySelectorAll('#hero-slides > div');
+  const textBlocks = document.querySelectorAll('.hero-text-block');
+  const progressBars = document.querySelectorAll('.indicator-progress');
+  const indicatorBtns = document.querySelectorAll('.indicator-btn');
+  const playPauseBtn = document.getElementById('play-pause-btn');
+  const heroSection = document.getElementById('hero-section');
+  const pauseIcon = document.querySelector('.pause-icon');
+  const playIcon = document.querySelector('.play-icon');
+
+  // Preload the first slide's Ken Burns state
+  if (slides.length > 0) {
+    slides[0].classList.add('is-active');
+  }
+
+  const goToSlide = (index: number) => {
+    slides[currentSlide].classList.remove('opacity-100', 'z-10', 'is-active');
+    slides[currentSlide].classList.add('opacity-0', 'z-0');
+    textBlocks[currentSlide].classList.remove('block');
+    textBlocks[currentSlide].classList.add('hidden');
+    (progressBars[currentSlide] as HTMLElement).style.width = '0%';
+
+    currentSlide = index;
+    slides[currentSlide].classList.remove('opacity-0', 'z-0');
+    slides[currentSlide].classList.add('opacity-100', 'z-10');
+
+    // Small delay to restart the CSS animations
+    setTimeout(() => {
+      slides[currentSlide].classList.add('is-active');
+      textBlocks[currentSlide].classList.remove('hidden');
+      textBlocks[currentSlide].classList.add('block');
+    }, 50);
+
+    progress = 0;
+
+    const nextIndex = (currentSlide + 1) % slides.length;
+    const nextImg = slides[nextIndex].querySelector('img');
+    if (nextImg && nextImg.dataset.src && !nextImg.src) {
+       nextImg.src = nextImg.dataset.src;
+    }
+  };
+
+  const updateProgress = (timestamp: number) => {
+    if (!lastTime) lastTime = timestamp;
+    const deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+
+    if (isPlaying) {
+      progress += (deltaTime / slideDuration) * 100;
+      
+      if (progress >= 100) {
+        goToSlide((currentSlide + 1) % slides.length);
+      } else {
+        (progressBars[currentSlide] as HTMLElement).style.width = `${progress}%`;
+      }
+    }
+
+    animationFrameId = requestAnimationFrame(updateProgress);
+  };
+
+  const togglePlayPause = (manualPlayState?: boolean) => {
+    if (manualPlayState !== undefined) {
+      isPlaying = manualPlayState;
+    } else {
+      isPlaying = !isPlaying;
+    }
+    
+    if (isPlaying) {
+      pauseIcon?.classList.remove('hidden');
+      playIcon?.classList.add('hidden');
+      lastTime = performance.now();
+    } else {
+      pauseIcon?.classList.add('hidden');
+      playIcon?.classList.remove('hidden');
+    }
+  };
+
+  // Event listeners
+  playPauseBtn?.addEventListener('click', () => togglePlayPause());
+
+  indicatorBtns.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      goToSlide(index);
+      togglePlayPause(false); // permanently pause on manual interaction
+    });
+  });
+
+  // Pause on hover/focus
+  heroSection?.addEventListener('mouseenter', () => isPlaying && togglePlayPause(false));
+  heroSection?.addEventListener('mouseleave', () => !playIcon?.classList.contains('hidden') && togglePlayPause(true));
+
+  // Start the animation unless the user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!prefersReducedMotion.matches) {
+    requestAnimationFrame((time) => {
+      lastTime = time;
+      updateProgress(time);
+    });
+  } else {
+    togglePlayPause(false);
+    progressBars.forEach((bar: any) => bar.style.width = '100%');
+  }
+</script>

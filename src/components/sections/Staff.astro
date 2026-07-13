@@ -1,0 +1,227 @@
+---
+import CircularButton from '../ui/CircularButton.astro';
+
+import { staffMembers } from '../../data/staff';
+
+const getInitials = (name: string) => {
+  const parts = name.split(' ');
+  if (parts.length >= 2) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  return name.substring(0, 2).toUpperCase();
+};
+---
+
+<section class="py-24 md:py-32 bg-mc-dark text-white" id="staff">
+  <div class="container mx-auto px-6 md:px-12">
+    
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-20">
+      <h2 class="font-display font-light text-4xl md:text-5xl lg:text-[56px] leading-[1.1] max-w-2xl data-reveal-fade-up">
+        Somos una firma conformada por profesionales disruptivos
+      </h2>
+      <div class="data-reveal-fade-up" style="transition-delay: 200ms;">
+        <CircularButton href="/staff" light>Conoce más de nuestro equipo</CircularButton>
+      </div>
+    </div>
+
+    <!-- Carousel container -->
+    <div class="relative overflow-hidden w-full group" id="staff-carousel-container">
+      <div class="flex transition-transform duration-500 ease-in-out will-change-transform" id="staff-carousel-track">
+        {staffMembers.map((member, index) => (
+          <div class="w-full sm:w-1/2 lg:w-1/3 px-4 shrink-0 flex-none">
+            <a href={`/staff/${member.id}`} class="group cursor-pointer block data-reveal-stagger" style={`transition-delay: ${(index * 150) + 300}ms;`}>
+              <div class="w-full aspect-4/5 overflow-hidden mb-6 bg-white/5 relative">
+                {member.image ? (
+                  <img 
+                    src={member.image} 
+                    alt={member.name}
+                    class="w-full h-full object-cover filter grayscale-20 transition-transform duration-1500 ease-out scale-105 data-ken-burns-in group-hover:scale-100 group-hover:grayscale-0"
+                    style={`object-position: ${member.objectPosition || 'top'};`}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center bg-white/5">
+                    <span class="text-white/30 text-4xl font-light tracking-widest group-hover:scale-105 transition-transform duration-500">
+                      {getInitials(member.name)}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div class="transition-transform duration-300 group-hover:-translate-y-2">
+                <h3 class="text-xl font-medium mb-1">{member.name}</h3>
+                <p class="text-mc-primary text-xs uppercase tracking-widest font-bold">{member.role}</p>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Manual controls -->
+      <button id="staff-prev" aria-label="Anterior" class="absolute left-0 top-[40%] -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-mc-primary text-white rounded-full flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-4 group-hover:translate-x-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button id="staff-next" aria-label="Siguiente" class="absolute right-0 top-[40%] -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-mc-primary text-white rounded-full flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:-translate-x-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Pagination dots -->
+    <div class="flex justify-center gap-3 mt-8" id="staff-carousel-dots"></div>
+    
+  </div>
+</section>
+
+<style>
+  .reveal-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .data-reveal-fade-up, .data-reveal-stagger {
+    opacity: 0;
+    transform: translateY(32px);
+    transition-property: opacity, transform;
+    transition-duration: 800ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ken-burns-active {
+    transform: scale(1) !important;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .data-ken-burns-in {
+      transform: scale(1) !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Entrance animations observer
+  const observeStaff = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+          
+          const img = entry.target.querySelector('.data-ken-burns-in');
+          if (img) img.classList.add('ken-burns-active');
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    
+    const elements = document.getElementById('staff')?.querySelectorAll('.data-reveal-fade-up, .data-reveal-stagger');
+    elements?.forEach(el => observer.observe(el));
+  };
+
+  observeStaff();
+
+  // Auto-play carousel logic
+  const initStaffCarousel = () => {
+    const track = document.getElementById('staff-carousel-track');
+    const prevBtn = document.getElementById('staff-prev');
+    const nextBtn = document.getElementById('staff-next');
+    const container = document.getElementById('staff-carousel-container');
+    const dotsContainer = document.getElementById('staff-carousel-dots');
+    
+    if (!track || !prevBtn || !nextBtn || !container || !dotsContainer) return;
+
+    let currentIndex = 0;
+    const items = track.children;
+    const totalItems = items.length;
+    let autoPlayInterval: number | undefined;
+
+    const getVisibleItemsCount = () => {
+      if (window.innerWidth >= 1024) return 3; // lg
+      if (window.innerWidth >= 640) return 2;  // sm
+      return 1;                                // base
+    };
+
+    const renderDots = () => {
+      const visibleItems = getVisibleItemsCount();
+      const maxIndex = totalItems - visibleItems;
+      
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i <= maxIndex; i++) {
+        const dot = document.createElement('button');
+        dot.setAttribute('aria-label', `Ir al slide ${i + 1}`);
+        dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-mc-primary w-6' : 'bg-white/20 hover:bg-white/50'}`;
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          updateCarousel();
+          startAutoPlay();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    };
+
+    const updateDots = () => {
+      Array.from(dotsContainer.children).forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.className = 'h-2 rounded-full transition-all duration-300 bg-mc-primary w-6';
+        } else {
+          dot.className = 'h-2 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/50 w-2';
+        }
+      });
+    };
+
+    const updateCarousel = () => {
+      const visibleItems = getVisibleItemsCount();
+      const maxIndex = totalItems - visibleItems;
+      
+      if (currentIndex > maxIndex) currentIndex = 0;
+      if (currentIndex < 0) currentIndex = maxIndex;
+
+      const percentage = -(currentIndex * (100 / visibleItems));
+      track.style.transform = `translateX(${percentage}%)`;
+      
+      updateDots();
+    };
+
+    const nextSlide = () => {
+      currentIndex++;
+      updateCarousel();
+    };
+
+    const prevSlide = () => {
+      currentIndex--;
+      updateCarousel();
+    };
+
+    const startAutoPlay = () => {
+      stopAutoPlay();
+      autoPlayInterval = setInterval(nextSlide, 3500);
+    };
+
+    const stopAutoPlay = () => {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+    };
+
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      startAutoPlay();
+    });
+    
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      startAutoPlay();
+    });
+
+    // Pause on hover
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    window.addEventListener('resize', () => {
+      // Re-render dots when screen size changes since maxIndex changes
+      renderDots();
+      updateCarousel();
+    });
+
+    renderDots();
+    updateCarousel();
+    startAutoPlay();
+  };
+
+  initStaffCarousel();
+</script>

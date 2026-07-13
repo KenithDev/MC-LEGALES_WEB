@@ -1,0 +1,151 @@
+---
+import Card from '../ui/Card.astro';
+import SectionLabel from '../ui/SectionLabel.astro';
+import CircularButton from '../ui/CircularButton.astro';
+
+const cards = [
+  {
+    variant: 'medium' as const,
+    label: 'DEFINIR',
+    title: 'Estrategia legal',
+    content: 'Nuestra pasión se traduce en nuestra filosofía: Identificamos riesgos, eliminamos contingencias.',
+    image: '/images/value-proposition/estrategia-legal.webp'
+  },
+  {
+    variant: 'dark' as const,
+    label: 'ANALIZAR',
+    title: 'Identificamos riesgos',
+    content: 'En Mercado & Competencia trabajamos con visión analítica, eficiente y estratégica, a nivel preventivo y resolutivo.',
+    image: '/images/value-proposition/Identificamos-riesgos.webp'
+  },
+  {
+    variant: 'dark' as const,
+    label: 'EJECUTAR',
+    title: 'Eliminamos contingencias',
+    content: 'Con el propósito de lograr soluciones legales oportunas, orientadas a los resultados esperados por nuestros clientes.',
+    image: '/images/value-proposition/eliminacion-contigencias.webp',
+    imagePosition: '38% center'
+  },
+  {
+    variant: 'medium' as const,
+    label: 'ASEGURAR',
+    title: 'Enforcement Legal',
+    content: 'Implementamos mecanismos efectivos para garantizar el cumplimiento normativo y proteger tus intereses a largo plazo.',
+    image: '/images/value-proposition/Enforcement-Legal.webp'
+  }
+];
+---
+
+<section class="py-24 md:py-32 bg-mc-light relative overflow-hidden" id="nosotros">
+  <div class="container mx-auto px-6 md:px-12 relative z-10">
+    
+    <!-- Top Part -->
+    <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16 md:mb-20">
+      <!-- Title -->
+      <div class="w-full lg:max-w-[55%] flex items-start">
+        <h2 class="font-display font-medium tracking-tight text-3xl md:text-4xl lg:text-[40px] leading-[1.1] text-mc-dark data-reveal-fade-up">
+          Nuestra pasión se traduce en nuestra filosofía: Identificamos riesgos, eliminamos contingencias
+        </h2>
+      </div>
+      
+      <!-- Text & Button -->
+      <div class="w-full lg:max-w-[40%] flex flex-col justify-start">
+        <p class="text-mc-medium text-lg leading-relaxed mb-8 data-reveal-fade-up" style="transition-delay: 200ms;">
+          En Mercado & Competencia trabajamos con visión analítica, eficiente y estratégica, a nivel preventivo y resolutivo, con el propósito de lograr soluciones legales oportunas, orientadas a los resultados esperados por nuestros clientes.
+        </p>
+        <div class="data-reveal-fade-up" style="transition-delay: 400ms;">
+          <a href="/nosotros" class="inline-flex items-center gap-2 font-bold text-[13px] tracking-widest uppercase text-mc-dark hover:text-mc-primary transition-colors group">
+            CONOCE MÁS DE NOSOTROS
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200 group-hover:translate-x-1 text-mc-primary"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Part: 2x2 Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0.5 bg-mc-light border border-mc-dark/10">
+      {cards.map((card, index) => (
+        <div class="data-reveal-stagger" style={`transition-delay: ${(index * 150) + 500}ms; opacity: 0; transform: translateY(20px); transition-property: opacity, transform; transition-duration: 600ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);`}>
+          
+          <div class={`flex flex-col sm:flex-row w-full h-full group/card relative overflow-hidden ${card.variant === 'dark' ? 'bg-mc-dark text-white' : 'bg-mc-medium text-white'}`}>
+            <!-- Top hover line -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-mc-primary origin-left scale-x-0 transition-transform duration-300 ease-out group-hover/card:scale-x-100 z-20"></div>
+
+            <!-- Left side: text on solid color -->
+            <div class="w-full sm:w-[60%] p-8 lg:p-12 flex flex-col justify-center relative z-10">
+              <div class="mb-6 flex">
+                <SectionLabel text={card.label} class="text-mc-primary! bg-transparent! border-mc-primary/60! text-[11px]" />
+              </div>
+              <h3 class="text-xl md:text-2xl font-semibold mb-4 tracking-tight">{card.title}</h3>
+              <p class="text-[13px] md:text-sm opacity-80 leading-relaxed font-light">{card.content}</p>
+            </div>
+
+            <!-- Right side: image (fills the full card height) -->
+            <div class="w-full sm:w-[40%] min-h-64 sm:min-h-full overflow-hidden relative z-0">
+              <img
+                src={card.image}
+                alt={card.title}
+                style={`object-position: ${card.imagePosition || 'center'};`}
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-105 opacity-90 group-hover/card:opacity-100 filter grayscale-20 group-hover/card:grayscale-0"
+              />
+            </div>
+          </div>
+          
+        </div>
+      ))}
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  .reveal-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .line-draw-active {
+    animation: drawLineProp 0.8s ease-out forwards;
+  }
+  
+  @keyframes drawLineProp {
+    from { width: 0; }
+    to { width: 4rem; }
+  }
+</style>
+
+<script>
+  const observeElements = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('data-reveal-fade-up') || entry.target.classList.contains('data-reveal-stagger')) {
+            entry.target.classList.add('reveal-active');
+          } else if (entry.target.classList.contains('data-reveal-line-draw')) {
+            entry.target.classList.add('line-draw-active');
+          } else if (entry.target.classList.contains('data-reveal-line')) {
+            entry.target.classList.remove('opacity-0');
+            entry.target.classList.add('opacity-100');
+          }
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+    
+    document.querySelectorAll('.data-reveal-fade-up, .data-reveal-stagger, .data-reveal-line-draw, .data-reveal-line').forEach(el => {
+      if (el.classList.contains('data-reveal-fade-up')) {
+        (el as HTMLElement).style.opacity = '0';
+        (el as HTMLElement).style.transform = 'translateY(20px)';
+        (el as HTMLElement).style.transitionProperty = 'opacity, transform';
+        (el as HTMLElement).style.transitionDuration = '600ms';
+        (el as HTMLElement).style.transitionTimingFunction = 'ease-out';
+      }
+      
+      observer.observe(el);
+    });
+  };
+
+  // Run on load
+  observeElements();
+</script>

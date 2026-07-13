@@ -1,0 +1,97 @@
+---
+interface Props {
+  items: string[];
+  id: string;
+  title: string;
+}
+
+const { items, id, title } = Astro.props;
+
+if (items.length === 0) return null;
+
+const initialCount = 3;
+const hasMore = items.length > initialCount;
+const visibleItems = hasMore ? items.slice(0, initialCount) : items;
+const hiddenItems = hasMore ? items.slice(initialCount) : [];
+---
+
+<div id={id} class="mb-20 scroll-mt-32">
+  <h2 class="font-display font-light text-[22px] md:text-2xl text-mc-dark mb-6">
+    {title}
+  </h2>
+  
+  <ul class="space-y-4">
+    {visibleItems.map(item => (
+      <li class="flex items-start gap-3">
+        <span class="text-mc-primary font-bold mt-0.5">-</span>
+        <span class="text-mc-medium text-[15px] leading-[1.6] text-pretty">
+          {item}
+        </span>
+      </li>
+    ))}
+  </ul>
+
+  {hasMore && (
+    <div class="mt-4">
+      <div class="overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0" data-accordion-content>
+        <ul class="space-y-4 mb-4">
+          {hiddenItems.map(item => (
+            <li class="flex items-start gap-3">
+              <span class="text-mc-primary font-bold mt-0.5">-</span>
+              <span class="text-mc-medium text-[15px] leading-[1.6] text-pretty">
+                {item}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <button 
+        class="text-mc-primary hover:text-mc-primary-hover font-semibold text-sm transition-colors mt-2 flex items-center gap-1"
+        data-accordion-btn
+        data-hidden-count={hiddenItems.length}
+      >
+        <span>Ver todo (+{hiddenItems.length})</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down transition-transform duration-300"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+    </div>
+  )}
+</div>
+
+<script>
+  const initAccordions = () => {
+    const btns = document.querySelectorAll('[data-accordion-btn]');
+    
+    btns.forEach(btn => {
+      // Remove old event listener if exists (due to astro:page-load)
+      const newBtn = btn.cloneNode(true) as HTMLButtonElement;
+      btn.parentNode?.replaceChild(newBtn, btn);
+      
+      newBtn.addEventListener('click', () => {
+        const content = newBtn.previousElementSibling as HTMLElement;
+        const icon = newBtn.querySelector('svg');
+        const textSpan = newBtn.querySelector('span');
+        const count = newBtn.getAttribute('data-hidden-count');
+        
+        const isExpanded = content.classList.contains('max-h-[1000px]');
+        
+        if (isExpanded) {
+          // Collapse
+          content.classList.remove('max-h-[1000px]', 'opacity-100');
+          content.classList.add('max-h-0', 'opacity-0');
+          if (icon) icon.style.transform = 'rotate(0deg)';
+          if (textSpan) textSpan.innerText = `Ver todo (+${count})`;
+        } else {
+          // Expand
+          content.classList.remove('max-h-0', 'opacity-0');
+          content.classList.add('max-h-[1000px]', 'opacity-100');
+          if (icon) icon.style.transform = 'rotate(180deg)';
+          if (textSpan) textSpan.innerText = 'Ver menos';
+        }
+      });
+    });
+  };
+
+  initAccordions();
+  document.addEventListener('astro:page-load', initAccordions);
+</script>

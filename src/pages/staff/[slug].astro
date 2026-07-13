@@ -1,0 +1,1047 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import CallToAction from '../../components/sections/CallToAction.astro';
+import { staffMembers, type StaffMember } from '../../data/staff';
+
+export function getStaticPaths() {
+  return staffMembers.map(member => ({
+    params: { slug: member.id },
+    props: { member },
+  }));
+}
+
+interface Props {
+  member: StaffMember;
+}
+
+const { member } = Astro.props;
+
+const currentIndex = staffMembers.findIndex(m => m.id === member.id);
+const prevMember = currentIndex > 0 ? staffMembers[currentIndex - 1] : null;
+const nextMember = currentIndex < staffMembers.length - 1 ? staffMembers[currentIndex + 1] : null;
+const otherMembers = staffMembers.filter(m => m.id !== member.id);
+
+const getInitials = (name: string) => {
+  const parts = name.split(' ');
+  if (parts.length >= 2) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  return name.substring(0, 2).toUpperCase();
+};
+
+const VISIBLE_ACADEMIC = 3;
+const hiddenAcademic = member.academic.length > VISIBLE_ACADEMIC
+  ? member.academic.slice(VISIBLE_ACADEMIC)
+  : [];
+
+const VISIBLE_EDU = 3;
+const hiddenEdu = member.education.length > VISIBLE_EDU
+  ? member.education.slice(VISIBLE_EDU)
+  : [];
+
+const VISIBLE_COURSES = 3;
+const hiddenCourses = (member.courses || []).length > VISIBLE_COURSES
+  ? member.courses!.slice(VISIBLE_COURSES)
+  : [];
+
+const VISIBLE_EXP = 3;
+const hiddenExp = member.experience.length > VISIBLE_EXP
+  ? member.experience.slice(VISIBLE_EXP)
+  : [];
+---
+
+<Layout title={`${member.name} - Staff | Mercado & Competencia`} headerLight>
+  <Header />
+
+  <main>
+    <!-- White spacer so the transparent header doesn't cover the content -->
+    <div class="mc-profile-topbar"></div>
+
+    <div class="mc-profile-page">
+
+      <!-- ════════════════════════ SIDEBAR ════════════════════════ -->
+      <aside class="mc-sidebar">
+        <a href="/staff" class="mc-back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Volver al Staff
+        </a>
+
+        <div class="mc-sidebar-photo">
+          {member.image ? (
+            <img
+              src={member.image}
+              alt={`Foto de ${member.name}`}
+              style={`object-position: ${member.objectPosition || 'top'}`}
+            />
+          ) : (
+            <div class="mc-sidebar-initials">{getInitials(member.name)}</div>
+          )}
+        </div>
+
+        <h1 class="mc-sidebar-name">{member.name}</h1>
+        <p class="mc-sidebar-role">{member.role}</p>
+
+        {member.linkedin && (
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mc-linkedin-btn"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            Ver perfil de LinkedIn
+          </a>
+        )}
+      </aside>
+
+      <!-- ════════════════════════ MAIN CONTENT ════════════════════════ -->
+      <div class="mc-main-content">
+
+        <!-- ANCHOR NAV -->
+        <nav class="mc-nav-ancla" id="mc-nav-ancla" aria-label="Secciones del perfil">
+          <a href="#especialidades" class="mc-nav-item" data-section="especialidades">Especialidades</a>
+          <a href="#formacion" class="mc-nav-item" data-section="formacion">Formación</a>
+          {member.courses && member.courses.length > 0 && (
+            <a href="#cursos" class="mc-nav-item" data-section="cursos">Cursos y Especialización</a>
+          )}
+          <a href="#experiencia" class="mc-nav-item" data-section="experiencia">Experiencia</a>
+          {member.academic.length > 0 && (
+            <a href="#academica" class="mc-nav-item" data-section="academica">Actividad Académica</a>
+          )}
+          {member.affiliation && (
+            <a href="#afiliacion" class="mc-nav-item" data-section="afiliacion">Afiliación</a>
+          )}
+        </nav>
+
+        <!-- ─── SPECIALTIES ─── -->
+        {member.specialties.length > 0 && (
+          <section id="especialidades" class="mc-section">
+            <h2 class="mc-section-title">Especialidades</h2>
+            <div class="mc-chips">
+              {member.specialties.map(spec => (
+                <span class="mc-chip">{spec}</span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- ─── EDUCATION ─── -->
+        {member.education.length > 0 && (
+          <section id="formacion" class="mc-section">
+            <h2 class="mc-section-title">Formación</h2>
+            <div class="mc-timeline">
+              {member.education.slice(0, VISIBLE_EDU).map(item => (
+                <div class="mc-timeline-item">
+                  <div class="mc-timeline-dot"></div>
+                  <p class="mc-timeline-title">{item.title}</p>
+                  <p class="mc-timeline-sub">{item.institution}</p>
+                </div>
+              ))}
+              {hiddenEdu.length > 0 && (
+                <div
+                  id="mc-edu-extra"
+                  class="mc-accordion-inline"
+                  aria-hidden="true"
+                >
+                  <div class="mc-accordion-inline-inner">
+                    {hiddenEdu.map(item => (
+                      <div class="mc-timeline-item">
+                        <div class="mc-timeline-dot"></div>
+                        <p class="mc-timeline-title">{item.title}</p>
+                        <p class="mc-timeline-sub">{item.institution}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            {hiddenEdu.length > 0 && (
+              <button class="mc-accordion-btn" id="mc-edu-toggle" aria-expanded="false" aria-controls="mc-edu-extra" data-count={hiddenEdu.length}>
+                <span class="mc-accordion-label">Ver todo (+{hiddenEdu.length})</span>
+                <svg class="mc-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+            )}
+          </section>
+        )}
+
+        <!-- ─── COURSES & SPECIALIZATION ─── -->
+        {member.courses && member.courses.length > 0 && (
+          <section id="cursos" class="mc-section">
+            <h2 class="mc-section-title">Cursos y Especialización</h2>
+            <div class="mc-timeline">
+              {member.courses.slice(0, VISIBLE_COURSES).map(item => (
+                <div class="mc-timeline-item">
+                  <div class="mc-timeline-dot"></div>
+                  <p class="mc-timeline-title">{item.title}</p>
+                  {item.institution && <p class="mc-timeline-sub">{item.institution}</p>}
+                </div>
+              ))}
+              {hiddenCourses.length > 0 && (
+                <div
+                  id="mc-courses-extra"
+                  class="mc-accordion-inline"
+                  aria-hidden="true"
+                >
+                  <div class="mc-accordion-inline-inner">
+                    {hiddenCourses.map(item => (
+                      <div class="mc-timeline-item">
+                        <div class="mc-timeline-dot"></div>
+                        <p class="mc-timeline-title">{item.title}</p>
+                        {item.institution && <p class="mc-timeline-sub">{item.institution}</p>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            {hiddenCourses.length > 0 && (
+              <button class="mc-accordion-btn" id="mc-courses-toggle" aria-expanded="false" aria-controls="mc-courses-extra" data-count={hiddenCourses.length}>
+                <span class="mc-accordion-label">Ver todo (+{hiddenCourses.length})</span>
+                <svg class="mc-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+            )}
+          </section>
+        )}
+
+        <!-- ─── EXPERIENCE ─── -->
+        {member.experience.length > 0 && (
+          <section id="experiencia" class="mc-section">
+            <h2 class="mc-section-title">Experiencia profesional</h2>
+            <div class="mc-timeline">
+              {member.experience.slice(0, VISIBLE_EXP).map(item => (
+                <div class="mc-timeline-item">
+                  <div class="mc-timeline-dot"></div>
+                  <p class="mc-timeline-title">{item.title}</p>
+                  <p class="mc-timeline-sub">{item.company}</p>
+                </div>
+              ))}
+              {hiddenExp.length > 0 && (
+                <div
+                  id="mc-exp-extra"
+                  class="mc-accordion-inline"
+                  aria-hidden="true"
+                >
+                  <div class="mc-accordion-inline-inner">
+                    {hiddenExp.map(item => (
+                      <div class="mc-timeline-item">
+                        <div class="mc-timeline-dot"></div>
+                        <p class="mc-timeline-title">{item.title}</p>
+                        <p class="mc-timeline-sub">{item.company}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            {hiddenExp.length > 0 && (
+              <button class="mc-accordion-btn" id="mc-exp-toggle" aria-expanded="false" aria-controls="mc-exp-extra" data-count={hiddenExp.length}>
+                <span class="mc-accordion-label">Ver todo (+{hiddenExp.length})</span>
+                <svg class="mc-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+            )}
+          </section>
+        )}
+
+        <!-- ─── ACADEMIC ACTIVITY ─── -->
+        {member.academic.length > 0 && (
+          <section id="academica" class="mc-section">
+            <h2 class="mc-section-title">Actividad Académica</h2>
+            <ul class="mc-academic-list">
+              {member.academic.slice(0, VISIBLE_ACADEMIC).map(item => (
+                <li class="mc-academic-item">{item}</li>
+              ))}
+            </ul>
+            {hiddenAcademic.length > 0 && (
+              <div class="mc-accordion">
+                <div
+                  id="mc-academic-extra"
+                  class="mc-accordion-content"
+                  aria-hidden="true"
+                  role="region"
+                >
+                  <ul class="mc-academic-list mc-academic-list--extra">
+                    {hiddenAcademic.map(item => (
+                      <li class="mc-academic-item">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <button
+                  class="mc-accordion-btn"
+                  id="mc-accordion-toggle"
+                  aria-expanded="false"
+                  aria-controls="mc-academic-extra"
+                  data-count={hiddenAcademic.length}
+                >
+                  <span class="mc-accordion-label">Ver todo (+{hiddenAcademic.length})</span>
+                  <svg class="mc-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
+        <!-- ─── AFFILIATION ─── -->
+        {member.affiliation && (
+          <section id="afiliacion" class="mc-section">
+            <h2 class="mc-section-title">Afiliación</h2>
+            <p class="mc-affiliation-text">{member.affiliation}</p>
+          </section>
+        )}
+
+        <!-- ─── PREV / NEXT ─── -->
+        <div class="mc-prevnext">
+          {prevMember ? (
+            <a href={`/staff/${prevMember.id}`} class="mc-prevnext-link mc-prevnext-link--prev">
+              <div class="mc-prevnext-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </div>
+              <div class="mc-prevnext-info">
+                <span class="mc-prevnext-label">Anterior</span>
+                <span class="mc-prevnext-name">{prevMember.name}</span>
+              </div>
+            </a>
+          ) : <div></div>}
+
+          {nextMember ? (
+            <a href={`/staff/${nextMember.id}`} class="mc-prevnext-link mc-prevnext-link--next">
+              <div class="mc-prevnext-info mc-prevnext-info--right">
+                <span class="mc-prevnext-label">Siguiente</span>
+                <span class="mc-prevnext-name">{nextMember.name}</span>
+              </div>
+              <div class="mc-prevnext-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </a>
+          ) : <div></div>}
+        </div>
+
+      </div><!-- /mc-main-content -->
+    </div><!-- /mc-profile-page -->
+
+    <!-- ─── OTHER PROFESSIONALS (full-width section) ─── -->
+    <section class="mc-others-section">
+      <div class="mc-others-inner">
+        <div class="mc-others-header">
+          <div>
+            <h3 class="mc-others-title">Conoce a otros profesionales</h3>
+            <p class="mc-others-subtitle">Explora el equipo completo de Mercado &amp; Competencia</p>
+          </div>
+          <div class="mc-others-controls">
+            <button id="mc-others-prev" aria-label="Anterior" class="mc-carousel-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button id="mc-others-next" aria-label="Siguiente" class="mc-carousel-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="mc-others-carousel" id="mc-others-carousel">
+          {otherMembers.map(other => (
+            <a href={`/staff/${other.id}`} class="mc-other-card">
+              <div class="mc-other-photo">
+                {other.image ? (
+                  <img
+                    src={other.image}
+                    alt={`Foto de ${other.name}`}
+                    style={`object-position: ${other.objectPosition || 'top'}`}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="mc-other-initials">{getInitials(other.name)}</div>
+                )}
+              </div>
+              <p class="mc-other-name">{other.name}</p>
+              <p class="mc-other-role">{other.role}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <CallToAction />
+  <Footer />
+</Layout>
+
+<style>
+  /* ══════════════════════════════════════════════
+     TOP BAR — provides dark background so white
+     header logo/links are always visible
+  ══════════════════════════════════════════════ */
+  .mc-profile-topbar {
+    background-color: #ffffff;
+    height: 100px;
+  }
+
+  /* ══════════════════════════════════════════════
+     PAGE WRAPPER — two-column grid
+  ══════════════════════════════════════════════ */
+  .mc-profile-page {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 64px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 48px 80px;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .mc-profile-page {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 40px 24px 80px;
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     SIDEBAR
+  ══════════════════════════════════════════════ */
+  .mc-sidebar {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+
+  @media (max-width: 1024px) {
+    .mc-sidebar {
+      position: static;
+    }
+  }
+
+  .mc-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #5A6473;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .mc-back-link:hover { color: #F26B41; }
+
+  .mc-sidebar-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background-color: #F4F2F3;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  .mc-sidebar-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .mc-sidebar-initials {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 300;
+    color: #363D48;
+    opacity: 0.3;
+    letter-spacing: 0.1em;
+  }
+
+  .mc-sidebar-name {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #363D48;
+    margin-bottom: 8px;
+    font-family: 'Inter Tight', sans-serif;
+  }
+
+  .mc-sidebar-role {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #F26B41;
+    margin-bottom: 24px;
+  }
+
+  .mc-linkedin-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid #E5E7EB;
+    border-radius: 9999px;
+    color: #363D48;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .mc-linkedin-btn:hover {
+    color: #F26B41;
+    border-color: #F26B41;
+  }
+
+  /* Mobile sidebar: horizontal layout */
+  @media (max-width: 1024px) {
+    .mc-sidebar-photo {
+      width: 80px;
+      height: 80px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+    .mc-back-link { margin-bottom: 20px; }
+    .mc-sidebar-name { font-size: 22px; }
+  }
+
+  /* ══════════════════════════════════════════════
+     ANCHOR NAV
+  ══════════════════════════════════════════════ */
+  .mc-nav-ancla {
+    position: sticky;
+    top: 72px;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #F0EEEC;
+    margin: 0 -48px 48px;
+    padding: 0 48px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .mc-nav-ancla::-webkit-scrollbar { display: none; }
+
+  @media (max-width: 1024px) {
+    .mc-nav-ancla {
+      margin: 0 -24px 40px;
+      padding: 0 24px;
+      top: 65px;
+    }
+  }
+
+  .mc-nav-item {
+    display: inline-block;
+    padding: 14px 0;
+    margin-right: 28px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5A6473;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .mc-nav-item:last-child { margin-right: 0; }
+  .mc-nav-item:hover { color: #363D48; }
+  .mc-nav-item.is-active {
+    color: #F26B41;
+    border-bottom-color: #F26B41;
+  }
+
+  /* ══════════════════════════════════════════════
+     SECTIONS
+  ══════════════════════════════════════════════ */
+  .mc-section {
+    margin-bottom: 64px;
+    padding-top: 8px;
+    scroll-margin-top: 140px;
+  }
+
+  .mc-section-title {
+    font-size: 18px;
+    font-weight: 300;
+    color: #363D48;
+    margin-bottom: 24px;
+    font-family: 'Inter Tight', sans-serif;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #F0EEEC;
+  }
+
+  /* CHIPS — max-width ensures they don't break out of container */
+  .mc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .mc-chip {
+    display: inline-block;
+    padding: 7px 16px;
+    background: #F4F2F3;
+    color: #363D48;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    cursor: default;
+    transition: border-color 0.2s;
+    word-break: break-word;
+  }
+  .mc-chip:hover { border-color: #F26B41; }
+
+  /* TIMELINE — the border-left is on the container, items are children */
+  .mc-timeline {
+    border-left: 2px solid #ECEAE8;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .mc-timeline-item {
+    position: relative;
+    /* Dot sits on the left border of .mc-timeline:
+       padding-left of parent = 24px, dot width = 8px, so:
+       left = -(24px + 8px/2) = -28px. Then 2px border itself = -29px.
+       We add 1px to account for border: left: -29px centers on the 2px line */
+  }
+  .mc-timeline-dot {
+    position: absolute;
+    left: -29px;     /* -(padding 24px + half-dot 4px + border 1px) */
+    top: 4px;        /* align with first text line cap-height */
+    width: 8px;
+    height: 8px;
+    background: #F26B41;
+    border-radius: 50%;
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 0 0 1px #ECEAE8;
+  }
+  /* Accordion inline: lives inside .mc-timeline so border-left is shared.
+     
+     Two tricky CSS problems to solve:
+     1. Gap doubling — the flex gap of .mc-timeline already spaces this div
+        from the last visible item, so we must NOT add padding-top inside.
+     2. Dot clipping — overflow:hidden clips the absolute-positioned dots
+        (left:-29px from item edge). Fix: extend the overflow boundary to the
+        left with margin-left:-36px + padding-left:36px (net content stays
+        aligned but the clip area starts 36px further left, past the dots). */
+  .mc-accordion-inline {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease;
+    /* Bleed zone so dots (at left:-29px from item) aren't clipped */
+    margin-left: -36px;
+    padding-left: 36px;
+  }
+  .mc-accordion-inline.is-open {
+    max-height: 2000px;
+  }
+  .mc-accordion-inline-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    /* NO padding-top here — the parent .mc-timeline gap already spaces
+       .mc-accordion-inline from the last visible item */
+  }
+  .mc-timeline-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #363D48;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .mc-timeline-sub {
+    font-size: 13px;
+    color: #5A6473;
+    line-height: 1.5;
+  }
+
+  /* ACADEMIC LIST */
+  .mc-academic-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mc-academic-item {
+    font-size: 14px;
+    color: #5A6473;
+    line-height: 1.6;
+    padding-left: 20px;
+    position: relative;
+  }
+  .mc-academic-item::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: #F26B41;
+    font-weight: 700;
+  }
+
+  /* ACCORDION — grid-rows technique for academic (collapse to 0) */
+  .mc-accordion { margin-top: 4px; }
+
+  .mc-accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s ease;
+    overflow: hidden;
+  }
+  .mc-accordion-content.is-open {
+    grid-template-rows: 1fr;
+  }
+  /* The direct child MUST have min-height: 0 for the grid collapse to work */
+  .mc-accordion-content > * {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .mc-academic-list--extra {
+    padding-top: 14px;
+  }
+
+  .mc-accordion-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #F26B41;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .mc-accordion-btn:hover { color: #D9542E; }
+  .mc-accordion-icon {
+    transition: transform 0.3s ease;
+  }
+  .mc-accordion-btn.is-open .mc-accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  /* AFFILIATION */
+  .mc-affiliation-text {
+    font-size: 15px;
+    color: #5A6473;
+    line-height: 1.7;
+  }
+
+  /* ══════════════════════════════════════════════
+     PREV / NEXT NAV
+  ══════════════════════════════════════════════ */
+  .mc-prevnext {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-top: 32px;
+    border-top: 1px solid #F0EEEC;
+    margin-top: 16px;
+    margin-bottom: 64px;
+  }
+  .mc-prevnext-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    max-width: 48%;
+    transition: opacity 0.2s;
+  }
+  .mc-prevnext-link:hover { opacity: 0.7; }
+  .mc-prevnext-link--next { flex-direction: row-reverse; }
+  .mc-prevnext-arrow {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #E5E7EB;
+    border-radius: 50%;
+    color: #5A6473;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .mc-prevnext-link:hover .mc-prevnext-arrow {
+    color: #F26B41;
+    border-color: #F26B41;
+  }
+  .mc-prevnext-info { display: flex; flex-direction: column; gap: 2px; }
+  .mc-prevnext-info--right { text-align: right; }
+  .mc-prevnext-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9CA3AF;
+  }
+  .mc-prevnext-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #363D48;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
+
+  /* ══════════════════════════════════════════════
+     OTHERS — full-width section (like Home carousel)
+  ══════════════════════════════════════════════ */
+  .mc-others-section {
+    background: #ffffff;
+    padding: 80px 0;
+    border-top: 1px solid #F0EEEC;
+  }
+  .mc-others-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    .mc-others-inner { padding: 0 24px; }
+  }
+  .mc-others-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+  }
+  .mc-others-title {
+    font-size: 28px;
+    font-weight: 300;
+    color: #363D48;
+    font-family: 'Inter Tight', sans-serif;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .mc-others-subtitle {
+    font-size: 13px;
+    color: #5A6473;
+  }
+  .mc-others-controls {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .mc-carousel-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #F26B41;
+    border-radius: 50%;
+    background: none;
+    color: #F26B41;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, opacity 0.2s, background-color 0.2s;
+  }
+  .mc-carousel-btn:hover:not(:disabled) { 
+    color: #ffffff; 
+    background-color: #F26B41; 
+  }
+  .mc-carousel-btn:disabled {
+    opacity: 0.3;
+    color: #9CA3AF;
+    border-color: #E5E7EB;
+    cursor: default;
+  }
+
+  .mc-others-carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+  .mc-others-carousel::-webkit-scrollbar { display: none; }
+
+  .mc-other-card {
+    flex-shrink: 0;
+    width: 200px;
+    scroll-snap-align: start;
+    text-decoration: none;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .mc-other-card { width: 160px; }
+  }
+  .mc-other-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: #F4F2F3;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  .mc-other-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease, filter 0.3s ease;
+    filter: grayscale(15%);
+  }
+  .mc-other-card:hover .mc-other-photo img {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+  }
+  .mc-other-initials {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 300;
+    color: #363D48;
+    opacity: 0.3;
+    letter-spacing: 0.1em;
+  }
+  .mc-other-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #363D48;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.2s;
+  }
+  .mc-other-card:hover .mc-other-name { color: #F26B41; }
+  .mc-other-role {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9CA3AF;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // ── SCROLL SPY ──
+  const initScrollSpy = () => {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.mc-nav-item');
+    if (links.length === 0) return;
+
+    const sectionIds = Array.from(links).map(l => l.getAttribute('data-section')).filter(Boolean) as string[];
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const activate = (id: string) => {
+      links.forEach(l => {
+        l.classList.toggle('is-active', l.getAttribute('data-section') === id);
+      });
+    };
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) activate(entry.target.id);
+      });
+    }, { rootMargin: '-120px 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // smooth scroll on click
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const id = link.getAttribute('data-section');
+        const target = id ? document.getElementById(id) : null;
+        if (target) {
+          const offset = 130;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  };
+
+  // ── GENERIC ACCORDION FACTORY ──
+  const makeAccordion = (btnId: string, contentId: string, totalCount: number) => {
+    const btn = document.getElementById(btnId) as HTMLButtonElement | null;
+    const content = document.getElementById(contentId);
+    if (!btn || !content) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = content.classList.contains('is-open');
+      content.classList.toggle('is-open', !isOpen);
+      content.setAttribute('aria-hidden', String(isOpen));
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      btn.classList.toggle('is-open', !isOpen);
+      const label = btn.querySelector('.mc-accordion-label');
+      if (label) {
+        label.textContent = isOpen ? `Ver todo (+${totalCount})` : 'Ver menos';
+      }
+    });
+  };
+
+  // ── OTHERS CAROUSEL ──
+  const initOthersCarousel = () => {
+    const container = document.getElementById('mc-others-carousel') as HTMLDivElement | null;
+    const prev = document.getElementById('mc-others-prev') as HTMLButtonElement | null;
+    const next = document.getElementById('mc-others-next') as HTMLButtonElement | null;
+    if (!container || !prev || !next) return;
+
+    const checkScroll = () => {
+      // Allow a 1px tolerance for rounding issues
+      const isAtStart = container.scrollLeft <= 1;
+      const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 1;
+      
+      prev.disabled = isAtStart;
+      next.disabled = isAtEnd;
+    };
+
+    const SCROLL = 220;
+    prev.addEventListener('click', () => container.scrollBy({ left: -SCROLL, behavior: 'smooth' }));
+    next.addEventListener('click', () => container.scrollBy({ left: SCROLL, behavior: 'smooth' }));
+
+    container.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', checkScroll, { passive: true });
+    
+    // Initial check (give browser a moment to layout)
+    setTimeout(checkScroll, 50);
+  };
+
+  initScrollSpy();
+
+  // ── UNIFIED ACCORDION: works for both .mc-accordion-inline and .mc-accordion-content ──
+  const setupAccordion = (btnId: string, contentId: string) => {
+    const btn = document.getElementById(btnId) as HTMLButtonElement | null;
+    const content = document.getElementById(contentId);
+    if (!btn || !content) return;
+
+    const totalCount = parseInt(btn.getAttribute('data-count') || '0');
+
+    btn.addEventListener('click', () => {
+      const isOpen = content.classList.contains('is-open');
+      content.classList.toggle('is-open', !isOpen);
+      content.setAttribute('aria-hidden', String(isOpen));
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      btn.classList.toggle('is-open', !isOpen);
+      const label = btn.querySelector('.mc-accordion-label');
+      if (label) {
+        label.textContent = isOpen ? `Ver todo (+${totalCount})` : 'Ver menos';
+      }
+    });
+  };
+
+  setupAccordion('mc-edu-toggle', 'mc-edu-extra');
+  setupAccordion('mc-courses-toggle', 'mc-courses-extra');
+  setupAccordion('mc-exp-toggle', 'mc-exp-extra');
+  setupAccordion('mc-accordion-toggle', 'mc-academic-extra');
+  initOthersCarousel();
+</script>

@@ -1,0 +1,737 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+---
+
+<Layout title="Contacto | Mercado & Competencia">
+  <Header />
+
+  <main>
+    <!-- ─── HERO SECTION ─── -->
+    <section class="mc-hero-contacto">
+      <div class="mc-hero-bg">
+        <img src="/images/contacto/HeroContacto.webp" alt="Fondo contacto" />
+        <div class="mc-hero-overlay"></div>
+      </div>
+      <div class="mc-hero-content">
+        <p class="mc-hero-eyebrow animate-hero-1">ESTAMOS PARA AYUDARTE</p>
+        <h1 class="mc-hero-title animate-hero-2">Contáctanos</h1>
+        <p class="mc-hero-subtitle animate-hero-3">Cuéntanos tu situación y uno de nuestros especialistas se pondrá en contacto contigo a la brevedad.</p>
+      </div>
+    </section>
+
+    <!-- ─── MAIN CONTACT SECTION ─── -->
+    <section class="mc-main-contacto">
+      <div class="mc-container">
+        <div class="mc-contacto-grid">
+          
+          <!-- LEFT: INFO -->
+          <div class="mc-contacto-info">
+            <p class="mc-info-eyebrow" data-reveal="fade-up">INFORMACIÓN DE CONTACTO</p>
+            <h2 class="mc-info-title" data-reveal="fade-up" style="transition-delay: 100ms;">Hablemos</h2>
+            <div class="mc-info-divider" data-reveal="fade-up" style="transition-delay: 150ms;"></div>
+            <p class="mc-info-desc" data-reveal="fade-up" style="transition-delay: 200ms;">
+              Nuestro equipo está disponible para atender tus consultas legales. Completa el formulario o contáctanos directamente por los canales que prefieras.
+            </p>
+
+            <div class="mc-office-block" data-reveal="fade-up" style="transition-delay: 250ms;">
+              <p class="mc-office-eyebrow">OFICINA</p>
+              <h3 class="mc-office-title">Lima</h3>
+              <ul class="mc-office-list">
+                <li>
+                  <svg class="mc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>Avenida El Polo 401, Oficina 303<br/>Urb. El Derby de Monterrico, Santiago de Surco</span>
+                </li>
+                <li>
+                  <svg class="mc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>(51) 987 208 575</span>
+                </li>
+                <li>
+                  <svg class="mc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <span>odamian@mclegales.com</span>
+                </li>
+                <li>
+                  <svg class="mc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>Lun - Vie: 9:00 am – 7:00 pm</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mc-fiscal-box" data-reveal="fade-up" style="transition-delay: 300ms;">
+              <p class="mc-fiscal-eyebrow">DATOS FISCALES</p>
+              <p class="mc-fiscal-name"><strong>Aguilar, Medina e Asociados SCRL.</strong></p>
+              <p class="mc-fiscal-ruc">RUC: 20601799244</p>
+            </div>
+          </div>
+
+          <!-- RIGHT: FORM -->
+          <div class="mc-contacto-form-wrapper" data-reveal="fade-up" style="transition-delay: 200ms;">
+            <div class="mc-form-box">
+              <p class="mc-form-eyebrow">FORMULARIO DE CONSULTA</p>
+              <h3 class="mc-form-title">Contáctanos ahora</h3>
+
+              <form class="mc-form" id="contactForm">
+                <div class="mc-form-group">
+                  <label for="name">NOMBRES</label>
+                  <input type="text" id="name" name="name" placeholder="Tu nombre completo" required />
+                </div>
+
+                <div class="mc-form-row">
+                  <div class="mc-form-group">
+                    <label for="email">CORREO ELECTRÓNICO</label>
+                    <input type="email" id="email" name="email" placeholder="tu@correo.com" required />
+                  </div>
+                  <div class="mc-form-group">
+                    <label for="phone">NÚMERO DE TELÉFONO</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+51 999 000 000" required />
+                  </div>
+                </div>
+
+                <div class="mc-form-group">
+                  <label for="company">EMPRESA / ORGANIZACIÓN <span class="mc-opcional">(opcional)</span></label>
+                  <input type="text" id="company" name="company" placeholder="Nombre de tu empresa" />
+                </div>
+
+                <div class="mc-form-group">
+                  <label for="message">DETALLE DE TU CONSULTA</label>
+                  <textarea id="message" name="message" rows="4" placeholder="Describe brevemente tu situación legal..." required></textarea>
+                </div>
+
+                <div class="mc-form-checkboxes">
+                  <label class="mc-checkbox">
+                    <input type="checkbox" id="privacy" name="privacy" required />
+                    <span class="mc-check-box"></span>
+                    <span class="mc-check-label">Acepto y declaro haber leído las <a href="/politicas-de-privacidad">Políticas de privacidad</a></span>
+                  </label>
+                  <label class="mc-checkbox">
+                    <input type="checkbox" id="marketing" name="marketing" />
+                    <span class="mc-check-box"></span>
+                    <span class="mc-check-label">Acepto que se me envíe la información solicitada a través de los medios de contacto proporcionados, y/o información adicional.</span>
+                  </label>
+                </div>
+
+                <button type="submit" class="mc-submit-btn" id="submitBtn" disabled>Enviar consulta</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── DARK BAR (QUICK CONTACT) ─── -->
+    <section class="mc-quick-contact">
+      <div class="mc-container mc-quick-grid">
+        <div class="mc-quick-item" data-reveal="fade-up">
+          <div class="mc-quick-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="mc-quick-content">
+            <p class="mc-quick-label">LLÁMANOS</p>
+            <p class="mc-quick-value">(51) 987 208 575</p>
+            <p class="mc-quick-sub">Lun – Vie, 9 am – 7 pm</p>
+          </div>
+        </div>
+        <div class="mc-quick-item" data-reveal="fade-up" style="transition-delay: 150ms;">
+          <div class="mc-quick-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="mc-quick-content">
+            <p class="mc-quick-label">ESCRÍBENOS</p>
+            <p class="mc-quick-value">odamian@mclegales.com</p>
+            <p class="mc-quick-sub">Responderemos en menos de 24 h</p>
+          </div>
+        </div>
+        <div class="mc-quick-item" data-reveal="fade-up" style="transition-delay: 300ms;">
+          <div class="mc-quick-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          </div>
+          <div class="mc-quick-content">
+            <p class="mc-quick-label">WHATSAPP</p>
+            <p class="mc-quick-value">+51 987 208 575</p>
+            <p class="mc-quick-sub">Respuesta rápida por chat</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── BOTTOM CTA ─── -->
+    <section class="mc-bottom-cta">
+      <div class="mc-container mc-cta-flex">
+        <div class="mc-cta-text" data-reveal="fade-up">
+          <p class="mc-cta-eyebrow">¿QUIERES CONOCER MÁS?</p>
+          <h2 class="mc-cta-title">Explora nuestras especialidades</h2>
+          <p class="mc-cta-desc">Conoce las áreas de práctica en las que nuestro equipo puede ayudarte.</p>
+        </div>
+        <div class="mc-cta-buttons" data-reveal="fade-up" style="transition-delay: 200ms;">
+          <a href="/servicios" class="mc-btn-outline-round">
+            <div class="mc-round-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </div>
+            Ver servicios
+          </a>
+          <a href="/staff" class="mc-btn-solid">Conoce al equipo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ─── VARIABLES & BASE ─── */
+  .mc-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  @media (min-width: 768px) {
+    .mc-container { padding: 0 48px; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-hero-1 { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; transform: translateY(20px); }
+  .animate-hero-2 { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards; opacity: 0; transform: translateY(20px); }
+  .animate-hero-3 { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; transform: translateY(20px); }
+
+  [data-reveal="fade-up"] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal="fade-up"].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── HERO ─── */
+  .mc-hero-contacto {
+    position: relative;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-top: 0;
+  }
+  .mc-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .mc-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .mc-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(23, 31, 41, 0.9) 0%, rgba(23, 31, 41, 0.6) 50%, rgba(23, 31, 41, 0) 100%);
+  }
+  .mc-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 48px;
+    padding-top: 60px;
+  }
+  .mc-hero-eyebrow {
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .mc-hero-title {
+    font-size: 56px;
+    color: #ffffff;
+    font-weight: 300;
+    font-family: 'Inter Tight', sans-serif;
+    margin-bottom: 16px;
+  }
+  .mc-hero-subtitle {
+    color: rgba(255,255,255,0.8);
+    font-size: 16px;
+    max-width: 480px;
+    line-height: 1.5;
+  }
+
+  /* ─── MAIN CONTACT SECTION ─── */
+  .mc-main-contacto {
+    background: #ffffff;
+    padding: 80px 0 100px;
+  }
+  .mc-contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  @media (min-width: 992px) {
+    .mc-contacto-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: 100px;
+    }
+  }
+
+  /* LEFT INFO */
+  .mc-info-eyebrow {
+    color: #F26B41;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .mc-info-title {
+    font-size: 36px;
+    color: #363D48;
+    font-weight: 300;
+    font-family: 'Inter Tight', sans-serif;
+    margin-bottom: 12px;
+  }
+  .mc-info-divider {
+    width: 40px;
+    height: 2px;
+    background: #F26B41;
+    margin-bottom: 24px;
+  }
+  .mc-info-desc {
+    color: #5A6473;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .mc-office-block {
+    margin-bottom: 40px;
+  }
+  .mc-office-eyebrow {
+    color: #F26B41;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .mc-office-title {
+    font-size: 24px;
+    color: #363D48;
+    font-weight: 300;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #F0EEEC;
+    margin-bottom: 24px;
+  }
+  .mc-office-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .mc-office-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #5A6473;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .mc-icon {
+    color: #F26B41;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .mc-fiscal-box {
+    background: #F4F2F3;
+    padding: 24px;
+    border-radius: 4px;
+  }
+  .mc-fiscal-eyebrow {
+    color: #8C94A1;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .mc-fiscal-name {
+    color: #363D48;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .mc-fiscal-ruc {
+    color: #5A6473;
+    font-size: 14px;
+  }
+
+  /* RIGHT FORM */
+  .mc-form-box {
+    background: #F8F7F6;
+    padding: 40px;
+    border-radius: 4px;
+  }
+  @media (min-width: 992px) {
+    .mc-form-box { padding: 48px; }
+  }
+  .mc-form-eyebrow {
+    color: #F26B41;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .mc-form-title {
+    font-size: 28px;
+    color: #363D48;
+    font-weight: 300;
+    font-family: 'Inter Tight', sans-serif;
+    margin-bottom: 32px;
+  }
+
+  .mc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .mc-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mc-form-group label {
+    font-size: 10px;
+    color: #5A6473;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .mc-opcional {
+    color: #A3AAB5;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .mc-form-group input,
+  .mc-form-group textarea {
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #363D48;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  .mc-form-group input::placeholder,
+  .mc-form-group textarea::placeholder {
+    color: #A3AAB5;
+  }
+  .mc-form-group input:focus,
+  .mc-form-group textarea:focus {
+    border-color: #F26B41;
+  }
+  .mc-form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 640px) {
+    .mc-form-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  .mc-form-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .mc-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .mc-checkbox input {
+    display: none;
+  }
+  .mc-check-box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+  }
+  .mc-checkbox input:checked + .mc-check-box {
+    background: #F26B41;
+    border-color: #F26B41;
+  }
+  .mc-checkbox input:checked + .mc-check-box::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .mc-check-label {
+    font-size: 13px;
+    color: #5A6473;
+    line-height: 1.5;
+  }
+  .mc-check-label a {
+    color: #F26B41;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s;
+  }
+  .mc-check-label a:hover {
+    text-decoration-color: #F26B41;
+  }
+
+  .mc-submit-btn {
+    background: #F26B41;
+    color: #ffffff;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 16px;
+  }
+  .mc-submit-btn:hover:not(:disabled) {
+    background: #D9542E;
+  }
+  .mc-submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ─── QUICK CONTACT (DARK BAR) ─── */
+  .mc-quick-contact {
+    background: #363D48;
+    padding: 60px 0;
+  }
+  .mc-quick-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  @media (min-width: 768px) {
+    .mc-quick-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+  }
+  .mc-quick-item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .mc-quick-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: #F26B41;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  }
+  .mc-quick-item:hover .mc-quick-icon {
+    transform: translateY(-5px);
+    background-color: rgba(255,255,255,0.05);
+  }
+  .mc-quick-label {
+    color: #F26B41;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .mc-quick-value {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .mc-quick-sub {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+  }
+
+  /* ─── BOTTOM CTA ─── */
+  .mc-bottom-cta {
+    background: #F8F7F6;
+    padding: 80px 0;
+  }
+  .mc-cta-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+  }
+  @media (min-width: 992px) {
+    .mc-cta-flex {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+  }
+  .mc-cta-text {
+    max-width: 500px;
+  }
+  .mc-cta-eyebrow {
+    color: #F26B41;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .mc-cta-title {
+    font-size: 32px;
+    color: #363D48;
+    font-weight: 300;
+    font-family: 'Inter Tight', sans-serif;
+    margin-bottom: 12px;
+  }
+  .mc-cta-desc {
+    color: #5A6473;
+    font-size: 15px;
+  }
+  .mc-cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+  }
+  
+  .mc-btn-outline-round {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #363D48;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mc-round-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #E5E7EB;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F26B41;
+    transition: all 0.2s;
+  }
+  .mc-btn-outline-round:hover .mc-round-icon {
+    background: #F26B41;
+    border-color: #F26B41;
+    color: #ffffff;
+  }
+  
+  .mc-btn-solid {
+    background: #F26B41;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .mc-btn-solid:hover {
+    background: #D9542E;
+  }
+</style>
+
+<script>
+  // Simple form validation logic
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+  
+  if (form && submitBtn) {
+    const checkValidity = () => {
+      submitBtn.disabled = !form.checkValidity();
+    };
+
+    form.addEventListener('input', checkValidity);
+    form.addEventListener('change', checkValidity);
+    
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.disabled = true;
+
+      fetch("https://formsubmit.co/ajax/odamian@mclegales.com", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(() => {
+        alert('¡Gracias por tu mensaje! Nos pondremos en contacto pronto.');
+        form.reset();
+        submitBtn.textContent = originalText || 'Enviar consulta';
+        checkValidity();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Hubo un error al enviar tu mensaje. Por favor intenta más tarde.');
+        submitBtn.textContent = originalText || 'Enviar consulta';
+        checkValidity();
+      });
+    });
+  }
+
+  // Scroll animations observer
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.15
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('[data-reveal="fade-up"]').forEach(el => {
+    observer.observe(el);
+  });
+</script>

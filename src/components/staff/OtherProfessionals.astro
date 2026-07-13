@@ -1,0 +1,132 @@
+---
+import { staffMembers } from "../../data/staff";
+
+interface Props {
+  currentId: string;
+}
+
+const { currentId } = Astro.props;
+
+const otherProfessionals = staffMembers.filter(
+  (member) => member.id !== currentId,
+);
+---
+
+<div class="mt-32 pt-16 border-t border-gray-100">
+  <div class="flex items-center justify-between mb-8">
+    <h3 class="font-display font-light text-2xl text-mc-dark">
+      Conoce a otros profesionales
+    </h3>
+
+    <!-- Manual nav controls for desktop (optional) -->
+    <div class="hidden md:flex gap-2">
+      <button
+        aria-label="Anterior"
+        id="others-prev"
+        class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-mc-primary hover:border-mc-primary transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg
+        >
+      </button>
+      <button
+        aria-label="Siguiente"
+        id="others-next"
+        class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-mc-primary hover:border-mc-primary transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg
+        >
+      </button>
+    </div>
+  </div>
+
+  <div class="relative -mx-6 px-6 md:mx-0 md:px-0">
+    <div
+      class="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar snap-x snap-mandatory"
+      id="others-carousel"
+    >
+      {
+        otherProfessionals.map((member) => (
+          <a
+            href={`/staff/${member.id}`}
+            class="flex flex-col group shrink-0 w-[160px] md:w-[180px] snap-start"
+          >
+            <div class="w-full aspect-square rounded-sm overflow-hidden bg-mc-light mb-4 relative">
+              {member.image ? (
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  class="w-full h-full object-cover grayscale-[20%] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                  style={`object-position: ${member.objectPosition || "top"};`}
+                  loading="lazy"
+                />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center">
+                  <span class="text-mc-dark text-2xl font-light tracking-widest opacity-30">
+                    {member.name.substring(0, 2).toUpperCase()}
+                  </span>
+                </div>
+              )}
+            </div>
+            <h4 class="text-mc-dark font-semibold text-[13px] md:text-sm leading-snug mb-1 group-hover:text-mc-primary transition-colors line-clamp-2">
+              {member.name}
+            </h4>
+            <p class="text-mc-medium text-[10px] md:text-[11px] uppercase tracking-widest font-bold line-clamp-1">
+              {member.role}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<script>
+  const initOthersCarousel = () => {
+    const container = document.getElementById("others-carousel");
+    const prevBtn = document.getElementById("others-prev");
+    const nextBtn = document.getElementById("others-next");
+
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const scrollAmount = 200;
+
+    prevBtn.addEventListener("click", () => {
+      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+
+    nextBtn.addEventListener("click", () => {
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+  };
+
+  initOthersCarousel();
+  document.addEventListener("astro:page-load", initOthersCarousel);
+</script>

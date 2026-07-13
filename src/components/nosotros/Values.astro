@@ -1,0 +1,55 @@
+---
+const values = [
+  {
+    id: "01",
+    title: "Disrupción",
+    description: "Cuestionamos el enfoque convencional para encontrar soluciones creativas y efectivas que realmente transformen la situación de nuestros clientes."
+  },
+  {
+    id: "02",
+    title: "Ética",
+    description: "Operamos con total integridad y transparencia, manteniendo los más altos estándares de conducta profesional en cada acción que emprendemos."
+  },
+  {
+    id: "03",
+    title: "Innovación",
+    description: "Buscamos permanentemente nuevas formas de resolver desafíos legales, incorporando perspectivas modernas y estratégicas a nuestra práctica."
+  },
+  {
+    id: "04",
+    title: "Compromiso",
+    description: "Asumimos cada asunto con dedicación total y responsabilidad, enfocándonos en los resultados concretos que nuestros clientes necesitan y esperan."
+  }
+];
+---
+<section class="py-24 md:py-32 bg-mc-dark text-white" id="valores">
+  <div class="container mx-auto px-6 md:px-12">
+    <!-- Header -->
+    <div class="mb-20">
+      <p class="text-mc-primary text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-semibold mb-3 data-fade-up-scroll">
+        LO QUE NOS DEFINE
+      </p>
+      <h2 class="font-display font-light text-3xl md:text-5xl lg:text-[44px] text-white data-fade-up-scroll" style="transition-delay: 100ms;">
+        Nuestros valores
+      </h2>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      {values.map((value, index) => (
+        <div class="flex flex-col data-fade-up-scroll" style={`transition-delay: ${(index * 150) + 200}ms;`}>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="h-[2px] w-6 bg-mc-primary"></div>
+            <span class="text-mc-primary text-[13px] font-bold tracking-widest">{value.id}</span>
+          </div>
+          <h3 class="text-xl md:text-[22px] font-semibold mb-4 text-white">
+            {value.title}
+          </h3>
+          <p class="text-white/70 text-[14px] leading-[1.7] text-pretty pr-4">
+            {value.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

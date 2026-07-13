@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import HeroEspecialidad from '../../components/especialidades/HeroEspecialidad.astro';
+import ChecklistCategorias from '../../components/especialidades/ChecklistCategorias.astro';
+import SubSpecialtiesTabs from '../../components/especialidades/SubSpecialtiesTabs.astro';
+import CtaCierreEspecialidad from '../../components/especialidades/CtaCierreEspecialidad.astro';
+import { especialidades, type Especialidad } from '../../data/especialidades';
+
+export function getStaticPaths() {
+  return especialidades.map(esp => ({
+    params: { slug: esp.id },
+    props: { especialidad: esp },
+  }));
+}
+
+interface Props {
+  especialidad: Especialidad;
+}
+
+const { especialidad } = Astro.props;
+---
+
+<Layout title={`${especialidad.title} | Mercado & Competencia`} headerLight whatsappTitle={especialidad.title}>
+  <Header />
+
+  <main>
+    <!-- Spacer for the fixed header -->
+    <div class="h-[90px] md:h-[120px] bg-white w-full"></div>
+
+    <!-- 1. Split hero (text left / photo right) -->
+    <HeroEspecialidad
+      title={especialidad.title}
+      heroImage={especialidad.heroImage}
+    />
+
+    <!-- Subtle divider -->
+    <div style="height: 1px; background: #F0EEEC; max-width: 1200px; margin: 0 auto 0;"></div>
+
+    <!-- 2. Category checklist with sidebar + anchor nav -->
+    <section style="background: #fff; padding-top: 48px;">
+      {especialidad.categories.length > 0 && (
+        <ChecklistCategorias 
+          title={especialidad.title}
+          categories={especialidad.categories}
+          sidebarImage={especialidad.sidebarImage}
+          sidebarObjectPosition={especialidad.sidebarObjectPosition}
+          breakImage={especialidad.breakImage}
+          breakQuote={especialidad.breakQuote}
+          hideNav={especialidad.categories.length === 1}
+        />
+      )}
+      
+      {especialidad.subSpecialties && especialidad.subSpecialties.length > 0 && (
+        <SubSpecialtiesTabs especialidad={especialidad} />
+      )}
+    </section>
+
+    <!-- 3. Closing CTA with background photo -->
+    <CtaCierreEspecialidad
+      title={especialidad.title}
+      heroImage={especialidad.heroImage}
+      ctaImage={especialidad.ctaImage}
+    />
+  </main>
+
+  <Footer />
+</Layout>

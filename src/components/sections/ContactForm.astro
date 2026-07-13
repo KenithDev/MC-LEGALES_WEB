@@ -1,0 +1,176 @@
+---
+import Button from '../ui/Button.astro';
+---
+
+<section class="py-24 md:py-32 bg-white" id="contacto">
+  <div class="container mx-auto px-6 md:px-12 flex justify-center">
+    
+    <div class="w-full max-w-2xl bg-white">
+      <h2 class="font-display font-semibold text-3xl md:text-4xl text-mc-dark mb-12 text-center">
+        Contáctanos ahora
+      </h2>
+      
+      <form id="contact-form" class="flex flex-col gap-6" onsubmit="event.preventDefault();">
+        
+        <!-- Name -->
+        <div class="form-group relative">
+          <label for="nombres" class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150">Nombres</label>
+          <div class="relative overflow-hidden rounded-md">
+            <input 
+              type="text" 
+              id="nombres" 
+              name="nombres" 
+              class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft" 
+              placeholder="Escribe tus nombres completos"
+              required
+            />
+            <div class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"></div>
+          </div>
+        </div>
+
+        <!-- Email & phone -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-group relative">
+            <label for="email" class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150">Correo electrónico</label>
+            <div class="relative overflow-hidden rounded-md">
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft" 
+                placeholder="ejemplo@correo.com"
+                required
+              />
+              <div class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"></div>
+            </div>
+          </div>
+          
+          <div class="form-group relative">
+            <label for="telefono" class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150">Número de teléfono</label>
+            <div class="relative overflow-hidden rounded-md">
+              <input 
+                type="tel" 
+                id="telefono" 
+                name="telefono" 
+                class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft" 
+                placeholder="+51 999 999 999"
+                required
+              />
+              <div class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Query details -->
+        <div class="form-group relative">
+          <label for="consulta" class="block text-[13px] text-mc-primary mb-1.5 transition-colors duration-150">Detalle de tu consulta</label>
+          <div class="relative overflow-hidden rounded-md">
+            <textarea 
+              id="consulta" 
+              name="consulta" 
+              rows="4"
+              class="w-full bg-mc-light text-mc-dark px-4 py-3 rounded-md focus:outline-none placeholder-mc-soft resize-y min-h-30" 
+              placeholder="Explícanos brevemente cómo podemos ayudarte..."
+              required
+            ></textarea>
+            <div class="focus-line absolute bottom-0 left-0 h-0.5 bg-mc-primary w-full origin-left scale-x-0 transition-transform duration-300 ease-out"></div>
+          </div>
+        </div>
+
+        <!-- Consent checkboxes -->
+        <div class="flex flex-col gap-4 mt-2 mb-6">
+          <label class="custom-checkbox flex items-start gap-3 cursor-pointer group">
+            <div class="relative flex items-center justify-center w-5 h-5 mt-0.5 rounded border border-mc-medium shrink-0 bg-white transition-colors group-hover:border-mc-primary">
+              <input type="checkbox" required class="peer sr-only" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="absolute pointer-events-none opacity-0 scale-50 transition-all duration-200 ease-out peer-checked:opacity-100 peer-checked:scale-100 z-10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <div class="absolute inset-0 bg-mc-primary scale-0 opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100 rounded-[3px]"></div>
+            </div>
+            <span class="text-sm text-mc-medium leading-relaxed select-none">
+              Acepto y declaro haber leído las <a href="/politicas-de-privacidad" class="text-mc-primary underline underline-offset-2 hover:text-mc-primary-deep transition-colors">Políticas de privacidad</a>
+            </span>
+          </label>
+
+          <label class="custom-checkbox flex items-start gap-3 cursor-pointer group">
+            <div class="relative flex items-center justify-center w-5 h-5 mt-0.5 rounded border border-mc-medium shrink-0 bg-white transition-colors group-hover:border-mc-primary">
+              <input type="checkbox" required class="peer sr-only" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="absolute pointer-events-none opacity-0 scale-50 transition-all duration-200 ease-out peer-checked:opacity-100 peer-checked:scale-100 z-10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <div class="absolute inset-0 bg-mc-primary scale-0 opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100 rounded-[3px]"></div>
+            </div>
+            <span class="text-sm text-mc-medium leading-relaxed select-none">
+              Acepto que se me envíe la información solicitada a través de los medios de contacto proporcionados y/o información adicional.
+            </span>
+          </label>
+        </div>
+
+        <Button type="submit" class="w-full bg-mc-primary! hover:bg-mc-primary-deep! text-lg py-4 group relative overflow-hidden">
+          <span class="relative z-10 btn-text transition-opacity duration-200">Enviar</span>
+          <!-- Loading spinner -->
+          <svg class="animate-spin h-5 w-5 text-white absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 btn-spinner transition-opacity duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </Button>
+        
+        <!-- Success message -->
+        <div class="success-message hidden bg-mc-light p-4 rounded-md border-l-4 border-mc-primary mt-2">
+          <p class="text-sm text-mc-dark">Tu mensaje ha sido enviado exitosamente. Nos pondremos en contacto contigo pronto.</p>
+        </div>
+
+      </form>
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  input:focus + .focus-line,
+  textarea:focus + .focus-line {
+    transform: scaleX(1);
+  }
+  
+  .form-group:focus-within label {
+    color: var(--color-mc-primary-deep);
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = form?.querySelector('button[type="submit"]');
+  const btnText = submitBtn?.querySelector('.btn-text');
+  const btnSpinner = submitBtn?.querySelector('.btn-spinner');
+  const successMsg = form?.querySelector('.success-message');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    if (form.checkValidity()) {
+      if(btnText) btnText.classList.add('opacity-0');
+      if(btnSpinner) btnSpinner.classList.remove('opacity-0');
+      
+      fetch("https://formsubmit.co/ajax/odamian@mclegales.com", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(() => {
+        if(btnSpinner) btnSpinner.classList.add('opacity-0');
+        if(btnText) btnText.classList.remove('opacity-0');
+        
+        form.reset();
+        successMsg?.classList.remove('hidden');
+        successMsg?.classList.add('animate-fade-in-up');
+        
+        setTimeout(() => {
+          successMsg?.classList.add('hidden');
+        }, 5000);
+      })
+      .catch((err) => {
+        console.error("Error al enviar el formulario", err);
+        if(btnSpinner) btnSpinner.classList.add('opacity-0');
+        if(btnText) btnText.classList.remove('opacity-0');
+        alert("Hubo un error al enviar tu mensaje. Por favor intenta más tarde.");
+      });
+    }
+  });
+</script>

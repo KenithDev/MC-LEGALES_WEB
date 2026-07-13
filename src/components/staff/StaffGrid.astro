@@ -1,0 +1,88 @@
+---
+import { staffMembers } from '../../data/staff';
+
+const getInitials = (name: string) => {
+  const parts = name.split(' ');
+  if (parts.length >= 2) {
+    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+};
+---
+
+<section class="bg-white py-20 md:py-32" id="profesionales">
+  <div class="container mx-auto px-6 md:px-12">
+    <h2 class="font-display font-light text-3xl md:text-4xl text-mc-dark mb-16 md:mb-20 text-left">
+      Nuestros profesionales
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+      {staffMembers.map((profile, index) => (
+        <a href={`/staff/${profile.id}`} class="group block cursor-pointer" data-reveal="soft-pop" style={`transition-delay: ${index * 80}ms;`}>
+          <!-- Photo card -->
+          <div class="w-full aspect-[4/5] bg-mc-light overflow-hidden mb-6 relative rounded-sm shadow-sm">
+            {profile.image ? (
+              <img 
+                src={profile.image} 
+                alt={profile.name} 
+                class="w-full h-full object-cover transition-transform duration-[700ms] ease-out group-hover:scale-[1.04]"
+                style={`object-position: ${profile.objectPosition || 'center'};`}
+                loading="lazy"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center bg-mc-light">
+                <span class="text-mc-dark text-4xl font-light tracking-widest opacity-30 group-hover:scale-105 transition-transform duration-500">
+                  {getInitials(profile.name)}
+                </span>
+              </div>
+            )}
+          </div>
+          
+          <!-- Content below -->
+          <div>
+            <h3 class="text-mc-dark font-semibold text-[16px] md:text-[17px] mb-2 transition-colors duration-300 group-hover:text-mc-primary">
+              {profile.name}
+            </h3>
+            <p class="text-mc-medium font-normal text-[12px] md:text-[13px] leading-snug tracking-wider uppercase">
+              {profile.role}
+            </p>
+            <!-- Animated orange line on hover -->
+            <div class="h-[2px] bg-mc-primary w-6 transition-all duration-300 ease-out group-hover:w-full mt-5"></div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  [data-reveal="soft-pop"] {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  
+  .reveal-active {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+  }
+</style>
+
+<script>
+  const observeGrid = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('[data-reveal="soft-pop"]').forEach(el => observer.observe(el));
+  };
+
+  observeGrid();
+</script>

@@ -1,0 +1,86 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const sections = [
+  { id: 'seccion-1', roman: 'I', title: 'Sobre nuestra firma' },
+  { id: 'seccion-2', roman: 'II', title: 'Libre navegación en nuestro sitio web' },
+  { id: 'seccion-3', roman: 'III', title: 'Contratación de servicios profesionales' },
+  { id: 'seccion-4', roman: 'IV', title: 'Modificaciones' },
+  { id: 'seccion-5', roman: 'V', title: 'Propiedad Intelectual' },
+  { id: 'seccion-6', roman: 'VI', title: 'Datos personales' },
+  { id: 'seccion-7', roman: 'VII', title: 'Canales de contacto e información adicional' },
+];
+---
+
+<LegalLayout
+  title="Términos y Condiciones | Mercado & Competencia"
+  documentName="Términos y Condiciones"
+  companyInfo="Documento destinado para visitantes y navegantes del sitio web"
+  lastUpdated="12/07/26"
+  updateReason="Publicación de los Términos y Condiciones"
+  sections={sections}
+>
+
+  <div class="mb-12">
+    <p>Para una mejor experiencia en la navegación del presente sitio web, te recomendamos que, previo al acceso, revises detenidamente los términos y condiciones que se detallan a continuación:</p>
+  </div>
+
+  <section id="seccion-1">
+    <div class="section-header">
+      <span class="section-roman">I</span>
+      <h2 class="section-title">Sobre nuestra firma</h2>
+    </div>
+    <p>Damián Medina &amp; Asociados Sociedad Civil de Responsabilidad Limitada (en adelante, <em>Mercado &amp; Competencia</em> o <em>nuestra Firma</em>) es una persona jurídica formalmente constituida ante el Registro de Personas Jurídicas de Lima (Perú), dedicada a brindar asesorías, consultorías y representación procesal en todo fuero arbitral, administrativo, común y especial, en toda instancia, cuando la naturaleza del proceso así lo permita.</p>
+  </section>
+
+  <section id="seccion-2">
+    <div class="section-header">
+      <span class="section-roman">II</span>
+      <h2 class="section-title">Libre navegación en nuestro sitio web</h2>
+    </div>
+    <p>El presente sitio web es totalmente informativo y los diversos servicios que ofrece están destinados a personas jurídicas y naturales, con capacidad absoluta para contratar por sí mismos o por intermedio de sus representantes legalmente reconocidos, sin distinción o excepción alguna. Asimismo, es importante señalar que la navegación en nuestro sitio web, no exige la creación de ningún tipo de usuario.</p>
+  </section>
+
+  <section id="seccion-3">
+    <div class="section-header">
+      <span class="section-roman">III</span>
+      <h2 class="section-title">Contratación de servicios profesionales</h2>
+    </div>
+    <p>Pensando en tu seguridad, la contratación de nuestros profesionales se realiza a través de la suscripción de documentos físicos o virtuales que garanticen a ambas partes, sus derechos y obligaciones contractuales, acorde a sus necesidades.</p>
+    <p>Es importante señalar que, por ningún motivo, los alcances privados de contratación con nuestros clientes, se verán afectados por los términos y condiciones que se detallan en este documento, toda vez que los mismos sólo se limitan a la navegación en este sitio web.</p>
+  </section>
+
+  <section id="seccion-4">
+    <div class="section-header">
+      <span class="section-roman">IV</span>
+      <h2 class="section-title">Modificaciones</h2>
+    </div>
+    <p>Mercado &amp; Competencia podrá modificar, adicionar, eliminar y/o actualizar los términos y condiciones en cualquier momento, por cualquier razón y sin necesidad de previo aviso, los cuales seguirán siendo de obligatorio cumplimiento desde el momento de su publicación en nuestro sitio web. Sin perjuicio de ello, el visitante o potencial cliente, puede consultar los presentes términos y condiciones generales de uso en cualquier momento, a través de los medios que ponemos a su disposición.</p>
+  </section>
+
+  <section id="seccion-5">
+    <div class="section-header">
+      <span class="section-roman">V</span>
+      <h2 class="section-title">Propiedad Intelectual</h2>
+    </div>
+    <p>Se deja expresa constancia que la propiedad intelectual, comercial e industrial del contenido, diseños y gráficas, sobre los que versa este contrato son de exclusiva propiedad de nuestra Firma. Asimismo, queda totalmente prohibida la copia, reproducción, adaptación, modificación, distribución, comercialización, comunicación pública y/o cualquier otra acción que comporte una infracción de la normativa vigente en Perú y/o internacionalmente en materia de propiedad intelectual y/o industrial, así como el uso de las marcas y los contenidos de nuestro sitio web, si no es con la previa autorización expresa y por escrito de nuestra Firma.</p>
+    <p>Damián Medina &amp; Asociados Sociedad Civil de Responsabilidad Limitada, cuenta con licencia para el uso exclusivo de la marca «Mercado &amp; Competencia», cuya inscripción obra en los registros de las oficinas de Propiedad Intelectual e Industrial de Indecopi.</p>
+  </section>
+
+  <section id="seccion-6">
+    <div class="section-header">
+      <span class="section-roman">VI</span>
+      <h2 class="section-title">Datos personales</h2>
+    </div>
+    <p>Mercado &amp; Competencia informa al titular de datos personales que, para la atención de cualquier comunicación, podrá realizar el tratamiento de su información personal. Por ese motivo, nuestra Firma declara que cualquier tratamiento de los Datos Personales se ajusta en las normativas de protección de datos personales vigentes y aplicables dentro del territorio peruano. Para conocer más sobre la forma de obtención y tratamiento de la información que nos otorgues, te invitamos a revisar nuestra <a href="/politicas-de-privacidad">Política de Privacidad y Protección de Datos Personales</a>.</p>
+  </section>
+
+  <section id="seccion-7">
+    <div class="section-header">
+      <span class="section-roman">VII</span>
+      <h2 class="section-title">Canales de contacto e información adicional</h2>
+    </div>
+    <p>Si tienes alguna duda o requieres de alguna información adicional, por favor contáctanos al correo electrónico: <a href="mailto:info@mclegales.com">info@mclegales.com</a> o al <a href="tel:+51987208575">(+51) 987 208 575</a>.</p>
+  </section>
+
+</LegalLayout>

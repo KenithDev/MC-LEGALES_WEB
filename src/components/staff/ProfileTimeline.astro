@@ -1,0 +1,39 @@
+---
+interface Item {
+  title: string;
+  institution?: string;
+  company?: string;
+}
+
+interface Props {
+  items: Item[];
+  id: string;
+  title: string;
+}
+
+const { items, id, title } = Astro.props;
+
+if (items.length === 0) return null;
+---
+
+<div id={id} class="mb-20 scroll-mt-32">
+  <h2 class="font-display font-light text-[22px] md:text-2xl text-mc-dark mb-8">
+    {title}
+  </h2>
+  
+  <div class="relative pl-6 border-l-2 border-[#ECEAE8]">
+    {items.map(item => (
+      <div class="mb-8 relative">
+        <!-- Dot -->
+        <div class="absolute w-2 h-2 rounded-full bg-mc-primary -left-[29px] top-2"></div>
+        
+        <h3 class="text-mc-dark font-semibold text-[15px] md:text-[16px] leading-snug mb-1">
+          {item.title}
+        </h3>
+        <p class="text-mc-medium text-[14px] leading-relaxed">
+          {item.institution || item.company}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>

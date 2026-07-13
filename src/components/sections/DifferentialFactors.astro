@@ -1,0 +1,111 @@
+---
+const factors = [
+  {
+    title: "Pensamiento disruptivo",
+    content: "Desafiamos los paradigmas legales tradicionales para encontrar soluciones creativas que protejan y potencien tu negocio frente a los nuevos retos del mercado."
+  },
+  {
+    title: "Transparencia en cifras",
+    content: "Mantenemos una comunicación clara sobre honorarios, tiempos y probabilidades de éxito, permitiendo una planificación financiera precisa sin sorpresas."
+  },
+  {
+    title: "Capacitación permanente",
+    content: "Nuestro equipo se mantiene en constante actualización sobre los cambios normativos y tendencias jurisprudenciales para ofrecer un servicio de vanguardia."
+  },
+  {
+    title: "Enfoque autorregulatorio",
+    content: "Diseñamos e implementamos programas de cumplimiento interno que previenen infracciones antes de que ocurran, fortaleciendo la cultura corporativa."
+  },
+  {
+    title: "Acompañamiento cercano",
+    content: "Nos integramos a la operatividad de tu negocio, entendiendo tu industria desde adentro para brindar una asesoría legal verdaderamente alineada a tus objetivos comerciales."
+  },
+  {
+    title: "Reducción de contingencias legales",
+    content: "Identificamos riesgos ocultos y estructuramos operaciones sólidas que minimizan la exposición legal y protegen el patrimonio de tu empresa."
+  }
+];
+---
+
+<section class="py-24 md:py-32 bg-white" id="diferenciales">
+  <div class="container mx-auto px-6 md:px-12">
+    <div class="mb-20">
+      <h2 class="font-display font-medium text-3xl md:text-5xl text-mc-dark mb-6 data-reveal-fade-up">
+        Factores diferenciales
+      </h2>
+      <div class="w-16 h-1 bg-mc-primary data-reveal-line-draw"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+      {factors.map((factor, index) => (
+        <div class="group data-reveal-stagger relative" style={`transition-delay: ${(index * 100)}ms;`}>
+          <!-- Animated orange line (draws in on reveal and hover) -->
+          <div class="absolute top-0 left-0 w-full h-px bg-mc-dark/10"></div>
+          <div class="absolute top-0 left-0 h-[2px] bg-mc-primary w-0 transition-all duration-300 ease-out group-hover:w-full data-line-draw"></div>
+          
+          <div class="pt-8 transition-transform duration-300 group-hover:-translate-y-2">
+            <span class="text-mc-primary/60 font-mono text-sm font-bold mb-4 block">0{index + 1}</span>
+            <h3 class="text-xl font-semibold text-mc-dark mb-4 leading-tight">{factor.title}</h3>
+            <p class="text-mc-medium text-sm leading-relaxed">{factor.content}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reveal-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .data-reveal-fade-up, .data-reveal-stagger {
+    opacity: 0;
+    transform: translateY(24px);
+    transition-property: opacity, transform;
+    transition-duration: 600ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .line-draw-active {
+    animation: drawLineProp 0.8s ease-out forwards;
+  }
+  
+  @keyframes drawLineProp {
+    from { width: 0; }
+    to { width: 4rem; }
+  }
+
+  .full-line-active {
+    width: 33% !important;
+  }
+  /* On group hover the line grows to 100% via the group-hover:w-full class */
+</style>
+
+<script>
+  const observeDiffFactors = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('data-reveal-fade-up') || entry.target.classList.contains('data-reveal-stagger')) {
+            entry.target.classList.add('reveal-active');
+          } 
+          else if (entry.target.classList.contains('data-reveal-line-draw')) {
+            entry.target.classList.add('line-draw-active');
+          }
+          else if (entry.target.classList.contains('data-line-draw')) {
+            entry.target.classList.add('full-line-active');
+          }
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    
+    const elements = document.getElementById('diferenciales')?.querySelectorAll('.data-reveal-fade-up, .data-reveal-stagger, .data-reveal-line-draw, .data-line-draw');
+    elements?.forEach(el => observer.observe(el));
+  };
+
+  observeDiffFactors();
+</script>

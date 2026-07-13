@@ -1,0 +1,27 @@
+---
+interface Props {
+  variant?: 'dark' | 'medium' | 'light';
+  class?: string;
+}
+
+const { variant = 'light', class: className = '' } = Astro.props;
+
+const variants = {
+  dark: "bg-mc-dark text-white",
+  medium: "bg-mc-medium text-white",
+  light: "bg-mc-light text-mc-dark"
+};
+---
+
+<div class:list={[
+  "group relative p-8 md:p-10 rounded-sm overflow-hidden transition-transform duration-300 hover:-translate-y-1",
+  variants[variant],
+  className
+]}>
+  <!-- Top accent line (revealed on hover) -->
+  <div class="absolute top-0 left-0 w-full h-1 bg-mc-primary origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></div>
+  
+  <div class="relative z-10 flex flex-col h-full">
+    <slot />
+  </div>
+</div>

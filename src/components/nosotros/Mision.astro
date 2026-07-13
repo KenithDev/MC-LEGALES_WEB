@@ -1,0 +1,49 @@
+---
+---
+<section class="py-24 md:py-32 bg-white overflow-hidden relative" id="mision">
+  <div class="container mx-auto px-6 md:px-12 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+      
+      <!-- Content (left) -->
+      <div class="w-full lg:w-1/2 flex flex-col justify-center">
+        <div class="mb-10">
+          <p class="text-mc-primary text-[13px] uppercase tracking-[0.2em] mb-4 font-semibold data-fade-up-scroll">
+            NUESTRA MISIÓN
+          </p>
+          <div class="h-[2px] bg-mc-primary data-draw-in origin-left"></div>
+        </div>
+        
+        <h2 class="font-display font-light text-[28px] md:text-[38px] text-mc-dark leading-[1.3] text-pretty data-fade-up-scroll" style="transition-delay: 150ms;">
+          Convertirnos en un aliado estratégico que sea el protagonista del logro de nuestros clientes.
+        </h2>
+      </div>
+
+      <!-- Image (right) -->
+      <div class="w-full lg:w-1/2 relative">
+        <div class="absolute inset-0 bg-mc-dark z-10 origin-left data-reveal-mask-scroll" style="transition-delay: 200ms;"></div>
+        <div class="w-full aspect-square md:aspect-[4/3] bg-mc-light overflow-hidden relative rounded-sm shadow-sm">
+          <img 
+            src="/images/nosotros/mision.webp" 
+            alt="Nuestra Misión" 
+            class="w-full h-full object-cover data-parallax-scroll scale-110"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Connector line to Vision -->
+  <div class="absolute bottom-0 left-[10%] lg:left-1/2 w-[1px] h-32 bg-gradient-to-b from-transparent via-mc-primary/50 to-mc-primary data-fade-up-scroll z-0" style="transition-delay: 400ms;"></div>
+</section>
+
+<style>
+  .data-draw-in {
+    width: 0;
+    transition: width 500ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
+  }
+  .draw-in-active {
+    width: 48px;
+  }
+</style>

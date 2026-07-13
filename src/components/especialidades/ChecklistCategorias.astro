@@ -1,0 +1,513 @@
+---
+import type { ServiceCategory } from '../../data/especialidades';
+
+interface Props {
+  title: string;
+  categories: ServiceCategory[];
+  sidebarImage: string;
+  sidebarObjectPosition?: string;
+  breakImage?: string;
+  breakQuote?: string;
+  hideNav?: boolean;
+}
+
+const { 
+  title,
+  categories, 
+  sidebarImage, 
+  sidebarObjectPosition, 
+  breakImage, 
+  breakQuote,
+  hideNav = false
+} = Astro.props;
+
+// The editorial break appears after the 3rd category (index 2)
+const BREAK_AFTER_INDEX = 2;
+const MOBILE_COLLAPSE_THRESHOLD = 6;
+---
+
+<div class="ecd-layout" id="especialidad-content">
+
+  <!-- ── SIDEBAR (desktop) ─────────────────────── -->
+  <aside class="ecd-sidebar" aria-label="Navegación de categorías">
+
+    <!-- Vertical 4:5 image -->
+    <div class="ecd-sidebar__photo">
+      <img
+        src={sidebarImage}
+        alt={title}
+        style={`object-position: ${sidebarObjectPosition || 'center'};`}
+        loading="lazy"
+      />
+    </div>
+
+    <!-- Anchor nav per category -->
+    {!hideNav && (
+      <nav class="ecd-sidebar__nav" aria-label="Categorías de servicio">
+        {categories.map((cat) => (
+          <a
+            href={`#${cat.id}`}
+            class="ecd-sidebar__nav-item"
+            data-nav-item={cat.id}
+          >
+            {cat.name}
+          </a>
+        ))}
+      </nav>
+    )}
+  </aside>
+
+  <!-- ── MAIN CONTENT ───────────────────── -->
+  <main class="ecd-content">
+
+    <!-- Mobile anchor nav (horizontal tabs) -->
+    {!hideNav && (
+      <nav class="ecd-mobile-nav" aria-label="Categorías de servicio">
+        {categories.map((cat) => (
+          <a
+            href={`#${cat.id}`}
+            class="ecd-mobile-nav__item"
+            data-mobile-nav-item={cat.id}
+          >
+            {cat.name}
+          </a>
+        ))}
+      </nav>
+    )}
+
+    {categories.map((cat, index) => {
+      const visibleItems = cat.items.slice(0, MOBILE_COLLAPSE_THRESHOLD);
+      const hiddenItems = cat.items.slice(MOBILE_COLLAPSE_THRESHOLD);
+      const hasCollapsible = hiddenItems.length > 0;
+
+      return (
+        <>
+          {/* Editorial break between category 3 and 4 */}
+          {index === BREAK_AFTER_INDEX + 1 && (
+            <div class="ecd-break" aria-hidden="true">
+              <img
+                src={breakImage}
+                alt=""
+                class="ecd-break__image"
+                loading="lazy"
+              />
+              {breakQuote && (
+                <div class="ecd-break__overlay">
+                  <p class="ecd-break__quote">{breakQuote}</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          <section
+            id={cat.id}
+            class="ecd-category"
+            data-category-section={cat.id}
+          >
+            {/* Category header */}
+            <div class="ecd-category__header">
+              <span class="ecd-category__overline">{cat.name}</span>
+            </div>
+
+            {/* Checklist grid — always visible on desktop */}
+            <ul class="ecd-checklist ecd-checklist--desktop">
+              {cat.items.map((item) => (
+                <li class="ecd-checklist__item">
+                  <svg class="ecd-checklist__icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Mobile: first 6 items always visible */}
+            <ul class="ecd-checklist ecd-checklist--mobile">
+              {visibleItems.map((item) => (
+                <li class="ecd-checklist__item">
+                  <svg class="ecd-checklist__icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Mobile: collapsible items when >6 */}
+            {hasCollapsible && (
+              <div class="ecd-accordion ecd-checklist--mobile" id={`acc-${cat.id}`}>
+                <div class="ecd-accordion__body" aria-hidden="true" id={`acc-body-${cat.id}`}>
+                  <ul class="ecd-checklist ecd-checklist--extra">
+                    {hiddenItems.map((item) => (
+                      <li class="ecd-checklist__item">
+                        <svg class="ecd-checklist__icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                          aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>{item.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button
+                  class="ecd-accordion__btn"
+                  aria-expanded="false"
+                  aria-controls={`acc-body-${cat.id}`}
+                  data-accordion-btn={cat.id}
+                >
+                  <span class="ecd-accordion__label">Ver los {hiddenItems.length} restantes</span>
+                  <svg class="ecd-accordion__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </button>
+              </div>
+            )}
+          </section>
+        </>
+      );
+    })}
+  </main>
+
+</div>
+
+<style>
+  /* ── Two-column layout ──────────────────────── */
+  .ecd-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .ecd-layout {
+      grid-template-columns: 1fr;
+      padding: 0 24px 60px;
+      gap: 0;
+    }
+  }
+
+  /* ── SIDEBAR ───────────────────────────────── */
+  .ecd-sidebar {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+
+  @media (max-width: 1024px) {
+    .ecd-sidebar { display: none; }
+  }
+
+  .ecd-sidebar__photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .ecd-sidebar__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ecd-sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ecd-sidebar__nav-item {
+    display: block;
+    padding: 9px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5A6473;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    border-radius: 0 4px 4px 0;
+  }
+  .ecd-sidebar__nav-item:hover {
+    color: #363D48;
+    background: #F4F2F3;
+  }
+  .ecd-sidebar__nav-item.is-active {
+    color: #F26B41;
+    border-left-color: #F26B41;
+    background: #FFF8F5;
+    font-weight: 600;
+  }
+
+  /* ── MOBILE NAV TABS ─────────────────────────── */
+  .ecd-mobile-nav {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .ecd-mobile-nav {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #F0EEEC;
+      position: sticky;
+      top: 65px;
+      z-index: 30;
+      margin: 0 -24px 40px;
+      padding: 0 24px;
+    }
+    .ecd-mobile-nav::-webkit-scrollbar { display: none; }
+  }
+
+  .ecd-mobile-nav__item {
+    display: inline-block;
+    padding: 13px 0;
+    margin-right: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5A6473;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .ecd-mobile-nav__item:last-child { margin-right: 0; }
+  .ecd-mobile-nav__item:hover { color: #363D48; }
+  .ecd-mobile-nav__item.is-active {
+    color: #F26B41;
+    border-bottom-color: #F26B41;
+  }
+
+  /* ── CONTENT ───────────────────────────────── */
+  .ecd-content {
+    min-width: 0;
+  }
+
+  /* ── CATEGORY ────────────────────────────────── */
+  .ecd-category {
+    margin-bottom: 60px;
+    padding-top: 8px;
+    scroll-margin-top: 140px;
+  }
+
+  .ecd-category__header {
+    border-top: 1px solid #ECEAE8;
+    padding-top: 28px;
+    margin-bottom: 24px;
+  }
+
+  .ecd-category__overline {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #F26B41;
+  }
+
+  /* ── CHECKLIST GRID (2 columns) ─────────────────── */
+  .ecd-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 24px;
+  }
+
+  /* Mobile: 1 column — mobile only */
+  .ecd-checklist--mobile {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .ecd-checklist--desktop { display: none; }
+    .ecd-checklist--mobile  { display: grid; grid-template-columns: 1fr; }
+    .ecd-checklist--extra   { grid-template-columns: 1fr; }
+  }
+
+  .ecd-checklist__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    color: #5A6473;
+    line-height: 1.55;
+  }
+
+  .ecd-checklist__icon {
+    width: 16px;
+    height: 16px;
+    color: #F26B41;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── MOBILE ACCORDION ─────────────────────────── */
+  .ecd-accordion {
+    margin-top: 4px;
+  }
+
+  .ecd-accordion__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+    overflow: hidden;
+  }
+  .ecd-accordion__body.is-open {
+    grid-template-rows: 1fr;
+  }
+  .ecd-accordion__body > * {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .ecd-checklist--extra {
+    padding-top: 14px;
+  }
+
+  .ecd-accordion__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #F26B41;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .ecd-accordion__btn:hover { color: #D9542E; }
+
+  .ecd-accordion__chevron {
+    transition: transform 0.3s ease;
+  }
+  .ecd-accordion__btn[aria-expanded="true"] .ecd-accordion__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ── EDITORIAL BREAK (16:9) ──────────────────── */
+  .ecd-break {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    margin-bottom: 60px;
+    margin-top: -4px;
+  }
+
+  .ecd-break__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+  }
+
+  .ecd-break__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(54,61,72,0.85) 0%, rgba(54,61,72,0.3) 60%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 32px;
+  }
+
+  .ecd-break__quote {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 300;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    color: #fff;
+    line-height: 1.4;
+    max-width: 480px;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 768px) {
+    .ecd-break {
+      aspect-ratio: 4 / 3;
+    }
+    .ecd-break__overlay { padding: 20px; }
+    .ecd-break__quote { font-size: 1rem; }
+  }
+</style>
+
+<script>
+  // ── Scroll-spy via IntersectionObserver ───────────────
+  function initScrollSpy() {
+    const sections = document.querySelectorAll<HTMLElement>('[data-category-section]');
+    const sidebarItems = document.querySelectorAll<HTMLElement>('[data-nav-item]');
+    const mobileItems = document.querySelectorAll<HTMLElement>('[data-mobile-nav-item]');
+
+    if (!sections.length) return;
+
+    const activate = (id: string) => {
+      sidebarItems.forEach(el => el.classList.toggle('is-active', el.dataset.navItem === id));
+      mobileItems.forEach(el => {
+        const isActive = el.dataset.mobileNavItem === id;
+        el.classList.toggle('is-active', isActive);
+        // Scroll the active mobile tab into view
+        if (isActive) el.scrollIntoView({ block: 'nearest', inline: 'center' });
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activate(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(s => observer.observe(s));
+  }
+
+  // ── Mobile accordion ─────────────────────────────────
+  function initAccordions() {
+    document.querySelectorAll<HTMLButtonElement>('[data-accordion-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.accordionBtn!;
+        const body = document.getElementById(`acc-body-${id}`);
+        if (!body) return;
+
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        body.setAttribute('aria-hidden', String(isOpen));
+        body.classList.toggle('is-open', !isOpen);
+
+        const label = btn.querySelector('.ecd-accordion__label');
+        if (label) {
+          const count = body.querySelectorAll('.ecd-checklist__item').length;
+          label.textContent = isOpen
+            ? `Ver los ${count} restantes`
+            : 'Ver menos';
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollSpy();
+    initAccordions();
+  });
+</script>

@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+import HeroServicios from '../components/servicios/HeroServicios.astro';
+import EspecialidadesGrid from '../components/servicios/EspecialidadesGrid.astro';
+import ContactFormServicios from '../components/servicios/ContactFormServicios.astro';
+
+import CtaServicios from '../components/servicios/CtaServicios.astro';
+---
+
+<Layout title="Servicios | Mercado & Competencia">
+  <Header />
+  
+  <main class="flex-grow">
+    <HeroServicios />
+    <EspecialidadesGrid />
+    <CtaServicios />
+    <ContactFormServicios />
+  </main>
+  
+  <Footer />
+</Layout>

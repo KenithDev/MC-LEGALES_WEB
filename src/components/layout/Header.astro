@@ -1,0 +1,321 @@
+---
+import Button from '../ui/Button.astro';
+import { especialidades } from '../../data/especialidades';
+
+const navItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Equipo', href: '/staff' },
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Contacto', href: '/contacto' }
+];
+
+const searchData = especialidades.map(esp => ({
+  title: esp.title,
+  url: `/especialidades/${esp.id}`
+}));
+---
+
+<header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out py-4 bg-transparent">
+  <!-- Dark gradient overlay for initial contrast -->
+  <div id="header-gradient" class="absolute inset-0 bg-linear-to-b from-black/50 to-transparent pointer-events-none transition-opacity duration-300"></div>
+
+  <div class="container mx-auto px-6 md:px-12 h-full flex items-center justify-between relative z-10">
+    <!-- Logo -->
+    <a href="/" class="block w-16 md:w-24 shrink-0 relative focus:outline-none">
+      <img src="/images/logos/logoMcWhite.webp" alt="Mercado & Competencia" id="logo-white" class="w-full h-auto transition-opacity duration-300 opacity-100" />
+      <img src="/images/logos/LogoMcColor.webp" alt="Mercado & Competencia" id="logo-color" class="w-full h-auto transition-opacity duration-300 opacity-0 absolute top-1/2 -translate-y-1/2 left-0" />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-8">
+      <ul class="flex items-center gap-8">
+        {navItems.map(item => (
+          <li>
+            <a 
+              href={item.href} 
+              class="text-sm font-medium transition-colors duration-200 nav-link text-white hover:text-mc-primary"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      
+      <div class="flex items-center gap-6 ml-4 pl-6 border-l border-white/20" id="nav-actions-divider">
+        <button id="search-toggle-btn" aria-label="Buscar" class="nav-link text-white hover:text-mc-primary transition-colors focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        </button>
+        <Button href="/contacto" class="py-2.5 px-6 text-sm">Realiza tu consulta</Button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <button id="mobile-menu-btn" class="lg:hidden text-white p-2 focus:outline-none nav-link flex items-center gap-4" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+      <div id="mobile-search-toggle" aria-label="Buscar" class="nav-link text-white hover:text-mc-primary transition-colors">
+         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      </div>
+      <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <svg id="close-menu-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu panel -->
+<div id="mobile-menu" class="fixed inset-0 z-40 hidden lg:hidden" aria-hidden="true">
+  <div class="absolute inset-0 bg-white opacity-0 transition-opacity duration-300" id="mobile-menu-backdrop"></div>
+  <nav class="relative h-full overflow-y-auto pt-28 pb-12 px-6 flex flex-col opacity-0 -translate-y-4 transition-all duration-300" id="mobile-menu-content" aria-label="Menú principal">
+    <ul class="flex flex-col gap-1">
+      {navItems.map(item => (
+        <li>
+          <a href={item.href} class="mobile-nav-link block py-4 text-2xl font-display font-light text-mc-dark border-b border-mc-dark/10">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-8">
+      <Button href="/contacto" class="w-full justify-center mobile-nav-link">Realiza tu consulta</Button>
+    </div>
+  </nav>
+</div>
+
+<!-- Search modal -->
+<div id="search-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300" aria-hidden="true" data-search-items={JSON.stringify(searchData)}>
+  <div class="container mx-auto px-6 md:px-12 pt-24 h-full flex flex-col items-center">
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="search-modal-content">
+      <div class="relative flex items-center p-4 border-b border-gray-100">
+        <svg class="absolute left-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Buscar especialidad legal..."
+          class="w-full pl-12 pr-12 py-3 text-lg font-medium text-gray-800 bg-transparent border-none outline-none placeholder-gray-400 focus:ring-0"
+          autocomplete="off"
+        />
+        <button id="close-search-btn" class="absolute right-6 text-gray-400 hover:text-mc-dark transition-colors focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="max-h-[60vh] overflow-y-auto p-2" id="search-results-container">
+        <ul id="search-results" class="flex flex-col"></ul>
+        <div id="search-empty" class="hidden py-8 text-center text-gray-500">
+          No se encontraron resultados para tu búsqueda.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Header scroll behavior
+  const header = document.getElementById('main-header');
+  const gradient = document.getElementById('header-gradient');
+  const logoWhite = document.getElementById('logo-white');
+  const logoColor = document.getElementById('logo-color');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const divider = document.getElementById('nav-actions-divider');
+  const alwaysLight = document.body.dataset.headerLight === 'true';
+
+  const applyLight = () => {
+    if (!header) return;
+    header.classList.remove('bg-transparent', 'py-4');
+    header.classList.add('bg-white', 'py-3', 'shadow-sm');
+    if (gradient) gradient.classList.add('opacity-0');
+    if (logoWhite) logoWhite.classList.replace('opacity-100', 'opacity-0');
+    if (logoColor) logoColor.classList.replace('opacity-0', 'opacity-100');
+    navLinks.forEach(link => {
+      link.classList.remove('text-white');
+      link.classList.add('text-mc-dark');
+    });
+    if (divider) divider.classList.replace('border-white/20', 'border-mc-dark/10');
+  };
+
+  const applyDark = () => {
+    if (!header) return;
+    header.classList.add('bg-transparent', 'py-4');
+    header.classList.remove('bg-white', 'py-3', 'shadow-sm');
+    if (gradient) gradient.classList.remove('opacity-0');
+    if (logoWhite) logoWhite.classList.replace('opacity-0', 'opacity-100');
+    if (logoColor) logoColor.classList.replace('opacity-100', 'opacity-0');
+    navLinks.forEach(link => {
+      link.classList.add('text-white');
+      link.classList.remove('text-mc-dark');
+    });
+    if (divider) divider.classList.replace('border-mc-dark/10', 'border-white/20');
+  };
+
+  const updateHeaderState = () => {
+    if (!header) return;
+    if (alwaysLight || window.scrollY > 50) {
+      applyLight();
+    } else {
+      applyDark();
+    }
+  };
+
+  window.addEventListener('scroll', updateHeaderState, { passive: true });
+  updateHeaderState();
+
+  // Mobile menu
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+  const mobileMenuContent = document.getElementById('mobile-menu-content');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeMenuIcon = document.getElementById('close-menu-icon');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  let isMobileMenuOpen = false;
+
+  const openMobileMenu = () => {
+    if (!mobileMenu || !mobileMenuBackdrop || !mobileMenuContent) return;
+    isMobileMenuOpen = true;
+    mobileMenu.classList.remove('hidden');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenuBtn?.setAttribute('aria-label', 'Cerrar menú');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+    hamburgerIcon?.classList.add('hidden');
+    closeMenuIcon?.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+    // Force the light header state so the close icon stays visible over
+    // the menu's white panel, regardless of the page's scroll state.
+    applyLight();
+    setTimeout(() => {
+      mobileMenuBackdrop.classList.remove('opacity-0');
+      mobileMenuContent.classList.remove('opacity-0', '-translate-y-4');
+    }, 10);
+  };
+
+  const closeMobileMenu = () => {
+    if (!mobileMenu || !mobileMenuBackdrop || !mobileMenuContent) return;
+    isMobileMenuOpen = false;
+    mobileMenuBtn?.setAttribute('aria-label', 'Abrir menú');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+    hamburgerIcon?.classList.remove('hidden');
+    closeMenuIcon?.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    mobileMenuBackdrop.classList.add('opacity-0');
+    mobileMenuContent.classList.add('opacity-0', '-translate-y-4');
+    updateHeaderState();
+    setTimeout(() => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }, 300);
+  };
+
+  mobileMenuBtn?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('#mobile-search-toggle')) return;
+    isMobileMenuOpen ? closeMobileMenu() : openMobileMenu();
+  });
+
+  mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+  window.addEventListener('resize', () => {
+    if (isMobileMenuOpen && window.innerWidth >= 1024) closeMobileMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMobileMenuOpen) closeMobileMenu();
+  });
+
+  // Search
+  const searchModal = document.getElementById('search-modal');
+  const searchModalContent = document.getElementById('search-modal-content');
+  const searchToggleBtn = document.getElementById('search-toggle-btn');
+  const mobileSearchToggleBtn = document.getElementById('mobile-search-toggle');
+  const closeSearchBtn = document.getElementById('close-search-btn');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const searchResults = document.getElementById('search-results');
+  const searchEmpty = document.getElementById('search-empty');
+
+  let searchData: { title: string, url: string }[] = [];
+  if (searchModal && searchModal.dataset.searchItems) {
+    try {
+      searchData = JSON.parse(searchModal.dataset.searchItems);
+    } catch (e) {
+      console.error("Failed to parse search data", e);
+    }
+  }
+
+  const openSearch = () => {
+    if (!searchModal || !searchModalContent || !searchInput) return;
+    searchModal.classList.remove('hidden');
+    setTimeout(() => {
+      searchModal.classList.remove('opacity-0');
+      searchModal.classList.add('opacity-100');
+      searchModalContent.classList.remove('scale-95', 'opacity-0');
+      searchModalContent.classList.add('scale-100', 'opacity-100');
+      searchInput.focus();
+      searchInput.value = '';
+      renderResults(searchData); // show all initially
+    }, 10);
+  };
+
+  const closeSearch = () => {
+    if (!searchModal || !searchModalContent) return;
+    searchModal.classList.remove('opacity-100');
+    searchModal.classList.add('opacity-0');
+    searchModalContent.classList.remove('scale-100', 'opacity-100');
+    searchModalContent.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+      searchModal.classList.add('hidden');
+    }, 300);
+  };
+
+  const renderResults = (items: { title: string, url: string }[]) => {
+    if (!searchResults || !searchEmpty) return;
+    searchResults.innerHTML = '';
+    
+    if (items.length === 0) {
+      searchEmpty.classList.remove('hidden');
+    } else {
+      searchEmpty.classList.add('hidden');
+      items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'border-b border-gray-50 last:border-0';
+        li.innerHTML = `
+          <a href="${item.url}" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors text-mc-dark hover:text-mc-primary group rounded-lg">
+            <svg class="text-gray-300 group-hover:text-mc-primary mr-3 transition-colors" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            <span class="font-medium">${item.title}</span>
+          </a>
+        `;
+        searchResults.appendChild(li);
+      });
+    }
+  };
+
+  const handleSearch = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const query = target.value.toLowerCase().trim();
+    if (!query) {
+      renderResults(searchData);
+      return;
+    }
+    
+    const filtered = searchData.filter(item => 
+      item.title.toLowerCase().includes(query)
+    );
+    renderResults(filtered);
+  };
+
+  if (searchToggleBtn) searchToggleBtn.addEventListener('click', openSearch);
+  if (mobileSearchToggleBtn) mobileSearchToggleBtn.addEventListener('click', (e) => { e.stopPropagation(); openSearch(); });
+  if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeSearch);
+  if (searchInput) searchInput.addEventListener('input', handleSearch);
+  
+  // Close on click outside
+  if (searchModal) {
+    searchModal.addEventListener('click', (e) => {
+      if (e.target === searchModal) {
+        closeSearch();
+      }
+    });
+  }
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && searchModal && !searchModal.classList.contains('hidden')) {
+      closeSearch();
+    }
+  });
+</script>

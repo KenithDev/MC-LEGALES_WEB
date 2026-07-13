@@ -1,0 +1,72 @@
+---
+const metrics = [
+  { value: 10, suffix: "+", label: "AÑOS DE EXPERIENCIA" },
+  { value: 9, suffix: "", label: "ESPECIALIDADES LEGALES" },
+  { value: 200, suffix: "+", label: "CLIENTES ATENDIDOS" },
+  { value: 8, suffix: "", label: "PROFESIONALES EN EL EQUIPO" }
+];
+---
+<section class="py-20 md:py-28 bg-white" id="metrics">
+  <div class="container mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+      {metrics.map((metric, index) => (
+        <div class="flex flex-col items-center justify-center text-center pt-8 md:pt-0 px-4 data-fade-up-scroll" style={`transition-delay: ${(index * 100)}ms;`}>
+          <div class="flex items-center justify-center text-mc-primary font-display font-light text-6xl md:text-7xl lg:text-[80px] mb-4 leading-none">
+            <span class="data-counter" data-target={metric.value}>0</span>
+            <span>{metric.suffix}</span>
+          </div>
+          <p class="text-mc-medium text-[11px] md:text-xs font-bold uppercase tracking-widest max-w-[160px] leading-relaxed">
+            {metric.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const animateCounters = () => {
+    const counters = document.querySelectorAll('.data-counter');
+    const speed = 1200; // duration in ms
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target as HTMLElement;
+          const target = +counter.getAttribute('data-target')!;
+          
+          let startTime: number | null = null;
+          
+          const step = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / speed, 1);
+            
+            // Easing function for smoother counter (easeOutQuart)
+            const easeProgress = 1 - Math.pow(1 - progress, 4);
+            
+            counter.innerText = Math.floor(easeProgress * target).toString();
+            
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            } else {
+              counter.innerText = target.toString();
+            }
+          };
+          
+          window.requestAnimationFrame(step);
+          observer.unobserve(counter);
+        }
+      });
+    }, { threshold: 0.5, rootMargin: "0px 0px -50px 0px" });
+
+    counters.forEach(counter => observer.observe(counter));
+  };
+  
+  // Run on first load
+  animateCounters();
+  
+  // Run on view transitions
+  document.addEventListener('astro:page-load', () => {
+    animateCounters();
+  });
+</script>

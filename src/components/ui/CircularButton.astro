@@ -1,0 +1,50 @@
+---
+interface Props {
+  href?: string;
+  class?: string;
+  light?: boolean;
+}
+
+const { href, class: className = '', light = false } = Astro.props;
+
+const Element = href ? 'a' : 'button';
+
+// "light" renders white text and border (e.g. Hero/Footer); otherwise dark.
+const textClass = light ? 'text-white' : 'text-mc-dark';
+const borderClass = light ? 'border-white' : 'border-mc-dark/20';
+const hoverText = 'group-hover:text-white';
+---
+
+<Element 
+  href={href} 
+  class:list={["group inline-flex items-center gap-3 md:gap-4 cursor-pointer text-sm md:text-base", className]}
+>
+  <div class:list={[
+    "relative flex items-center justify-center w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full border transition-colors duration-250",
+    borderClass,
+    "group-hover:bg-mc-primary group-hover:border-mc-primary"
+  ]}>
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="20" 
+      height="20" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="2" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      class:list={[
+        "w-4 h-4 md:w-5 md:h-5 transition-all duration-250 group-hover:translate-x-1",
+        textClass,
+        hoverText
+      ]}
+    >
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
+    </svg>
+  </div>
+  <span class:list={["font-medium transition-colors duration-250", textClass]}>
+    <slot />
+  </span>
+</Element>

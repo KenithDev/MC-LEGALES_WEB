@@ -1,0 +1,106 @@
+---
+import CircularButton from '../ui/CircularButton.astro';
+---
+
+<section class="py-24 md:py-32 bg-mc-light" id="cta">
+  <div class="container mx-auto px-6 md:px-12">
+    <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+      
+      <!-- Featured stat (count-up) -->
+      <div class="w-full lg:w-5/12 flex flex-col items-start">
+        <div class="flex items-baseline gap-2 mb-4 overflow-hidden">
+          <span class="text-mc-primary font-display font-light text-8xl md:text-[120px] leading-none" id="cta-counter" data-target="15">0</span>
+          <span class="text-mc-primary font-display font-light text-6xl md:text-8xl">+</span>
+        </div>
+        <h2 class="text-mc-dark font-medium text-2xl md:text-3xl tracking-tight data-reveal-fade-up">Años de experiencia combinada</h2>
+      </div>
+
+      <!-- Text and button -->
+      <div class="w-full lg:w-7/12 flex flex-col items-start border-l-0 lg:border-l lg:border-mc-dark/10 lg:pl-24">
+        <h3 class="font-display font-light text-3xl md:text-5xl leading-[1.1] text-mc-dark mb-8 data-reveal-fade-up" style="transition-delay: 100ms;">
+          ¿Listo para estructurar tu próximo desafío legal con visión de negocio?
+        </h3>
+        <p class="text-mc-medium text-lg leading-relaxed mb-10 data-reveal-fade-up" style="transition-delay: 200ms;">
+          Contamos con la experiencia, la especialización y la visión estratégica para acompañarte en cada paso del proceso operativo de tu empresa.
+        </p>
+        <div class="data-reveal-fade-up" style="transition-delay: 300ms;">
+          <CircularButton href="/contacto">Hablemos de tu caso</CircularButton>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<style>
+  .reveal-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .data-reveal-fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition-property: opacity, transform;
+    transition-duration: 800ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+
+<script>
+  const observeCTA = () => {
+    let hasCounted = false;
+    const counterElement = document.getElementById('cta-counter');
+    const target = parseInt(counterElement?.dataset.target || '0', 10);
+    
+    const easeOutQuad = (t: number) => t * (2 - t);
+    
+    const countUp = () => {
+      if (!counterElement) return;
+      hasCounted = true;
+      
+      const duration = 1500;
+      const startTime = performance.now();
+      
+      const updateCounter = (currentTime: number) => {
+        const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+        
+        const currentCount = Math.floor(easeOutQuad(progress) * target);
+        counterElement.innerText = currentCount.toString();
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        } else {
+          counterElement.innerText = target.toString();
+        }
+      };
+
+      // Skip straight to the end if the user prefers reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counterElement.innerText = target.toString();
+      } else {
+        requestAnimationFrame(updateCounter);
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+          
+          if (!hasCounted && counterElement) {
+            countUp();
+          }
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    
+    const elements = document.getElementById('cta')?.querySelectorAll('.data-reveal-fade-up, #cta-counter');
+    elements?.forEach(el => observer.observe(el));
+  };
+
+  observeCTA();
+</script>

@@ -1,0 +1,60 @@
+---
+---
+<section class="py-24 md:py-32 bg-mc-light overflow-hidden relative transition-colors duration-500" id="vision">
+  <!-- Connector line from Mision -->
+  <div class="absolute top-0 left-[10%] lg:left-1/2 w-[1px] h-32 bg-gradient-to-b from-mc-primary via-mc-primary/50 to-transparent data-fade-up-scroll z-0"></div>
+
+  <div class="container mx-auto px-6 md:px-12 relative z-10">
+    <!-- Mirrored layout: image left, content right -->
+    <div class="flex flex-col-reverse lg:flex-row items-center gap-16 lg:gap-24">
+
+      <!-- Image (left) -->
+      <div class="w-full lg:w-5/12 relative">
+        <div class="absolute inset-0 bg-mc-dark z-10 origin-right data-reveal-mask-scroll" style="transition-delay: 200ms;"></div>
+        <div class="w-full aspect-square md:aspect-[3/4] bg-white overflow-hidden relative rounded-sm shadow-sm">
+          <img 
+            src="/images/nosotros/vision.webp" 
+            alt="Nuestra Visión" 
+            class="w-full h-full object-cover object-[center_30%] data-parallax-scroll scale-110"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Content (right) -->
+      <div class="w-full lg:w-7/12 flex flex-col justify-center">
+        <div class="mb-10">
+          <p class="text-mc-primary text-[13px] uppercase tracking-[0.2em] mb-4 font-semibold data-fade-up-scroll">
+            NUESTRA VISIÓN
+          </p>
+          <div class="h-[2px] bg-mc-primary data-draw-in origin-left"></div>
+        </div>
+        
+        <h2 class="font-display font-light text-[24px] md:text-[30px] lg:text-[34px] text-mc-dark leading-[1.35] text-pretty data-fade-up-scroll" style="transition-delay: 150ms;">
+          Consolidarnos como la mejor opción frente a la asesoría estratégica y legal de los negocios de nuestros clientes, y hacer de nuestra cultura el principal referente para los retos que propone un mercado altamente competitivo y dinámico.
+        </h2>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Shared with Mision.astro for the intersection observer */
+  :global(.data-reveal-mask-scroll) {
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  :global(.mask-active-scroll) {
+    transform: scaleX(0);
+  }
+
+  :global(.data-fade-up-scroll) {
+    transform: translateY(24px);
+    opacity: 0;
+    transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease-out;
+  }
+  :global(.fade-up-active-scroll) {
+    transform: translateY(0);
+    opacity: 1;
+  }
+</style>
