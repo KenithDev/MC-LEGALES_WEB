@@ -185,6 +185,11 @@ const mainServices = [
     }
   }
 
+  /* Brighter track marks the current slide even when its progress bar is empty */
+  .indicator-btn.is-current {
+    background-color: rgba(255, 255, 255, 0.45);
+  }
+
   .animate-fade-in-up-stagger-1 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; transform: translateY(16px); }
   .animate-fade-in-up-stagger-2 { animation: fadeInUp 0.6s ease-out 0.1s forwards; opacity: 0; transform: translateY(16px); }
   .animate-draw-line { animation: drawLine 0.6s ease-out 0.2s forwards; width: 0; }
@@ -226,6 +231,10 @@ const mainServices = [
   if (slides.length > 0) {
     slides[0].classList.add('is-active');
   }
+  if (indicatorBtns.length > 0) {
+    indicatorBtns[0].classList.add('is-current');
+    indicatorBtns[0].setAttribute('aria-current', 'true');
+  }
 
   const goToSlide = (index: number) => {
     slides[currentSlide].classList.remove('opacity-100', 'z-10', 'is-active');
@@ -233,10 +242,14 @@ const mainServices = [
     textBlocks[currentSlide].classList.remove('block');
     textBlocks[currentSlide].classList.add('hidden');
     (progressBars[currentSlide] as HTMLElement).style.width = '0%';
+    indicatorBtns[currentSlide].classList.remove('is-current');
+    indicatorBtns[currentSlide].setAttribute('aria-current', 'false');
 
     currentSlide = index;
     slides[currentSlide].classList.remove('opacity-0', 'z-0');
     slides[currentSlide].classList.add('opacity-100', 'z-10');
+    indicatorBtns[currentSlide].classList.add('is-current');
+    indicatorBtns[currentSlide].setAttribute('aria-current', 'true');
 
     // Small delay to restart the CSS animations
     setTimeout(() => {

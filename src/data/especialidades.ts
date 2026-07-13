@@ -35,7 +35,7 @@ export interface Especialidad {
 }
 
 // Company WhatsApp number (matches the site footer)
-export const WHATSAPP_NUMBER = '51997228878';
+export const WHATSAPP_NUMBER = '51987208575';
 
 export function buildWhatsAppLink(specialtyTitle: string): string {
   const message = encodeURIComponent(
