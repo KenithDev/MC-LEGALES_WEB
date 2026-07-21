@@ -49,17 +49,13 @@ import Footer from '../components/layout/Footer.astro';
                 </li>
                 <li>
                   <svg class="mc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                  <span>odamian@mclegales.com</span>
+                  <span>info@mclegales.com</span>
                 </li>
-                <li>
-                  <svg class="mc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  <span>Lun - Vie: 9:00 am – 7:00 pm</span>
-                </li>
+               
               </ul>
             </div>
 
             <div class="mc-fiscal-box" data-reveal="fade-up" style="transition-delay: 300ms;">
-              <p class="mc-fiscal-eyebrow">DATOS FISCALES</p>
               <p class="mc-fiscal-name"><strong>Damián Medina &amp; Asociados SCRL.</strong></p>
               <p class="mc-fiscal-ruc">RUC: 20602980848</p>
             </div>
@@ -130,7 +126,6 @@ import Footer from '../components/layout/Footer.astro';
           <div class="mc-quick-content">
             <p class="mc-quick-label">LLÁMANOS</p>
             <p class="mc-quick-value">(51) 987 208 575</p>
-            <p class="mc-quick-sub">Lun – Vie, 9 am – 7 pm</p>
           </div>
         </div>
         <div class="mc-quick-item" data-reveal="fade-up" style="transition-delay: 150ms;">
@@ -139,7 +134,7 @@ import Footer from '../components/layout/Footer.astro';
           </div>
           <div class="mc-quick-content">
             <p class="mc-quick-label">ESCRÍBENOS</p>
-            <p class="mc-quick-value">odamian@mclegales.com</p>
+            <p class="mc-quick-value">info@mclegales.com</p>
             <p class="mc-quick-sub">Responderemos en menos de 24 h</p>
           </div>
         </div>
@@ -694,7 +689,7 @@ import Footer from '../components/layout/Footer.astro';
       submitBtn.textContent = 'Enviando...';
       submitBtn.disabled = true;
 
-      fetch("https://formsubmit.co/ajax/odamian@mclegales.com", {
+      fetch("https://formsubmit.co/ajax/info@mclegales.com", {
         method: "POST",
         body: new FormData(form),
         headers: { 'Accept': 'application/json' }

@@ -52,14 +52,13 @@ export const staffMembers: StaffMember[] = [
     ],
     academic: [
       "Docente de «Aspectos Legales de un Digital Commerce» — Escuela de Postgrado de la Universidad Peruana de Ciencias Aplicadas",
-      "Ponente Nacional e Internacional — Diversas áreas de su especialización",
       "«Derecho Procesal de Consumo» (Jurista Editores, 2026)",
       "«Código de Protección y Defensa del Consumidor. Ilustrado en esquemas» (Jurista Editores, 2025)",
       "«Consumo sustentable» (AA.VV. El Derecho, 2025)",
       "Autor y Coordinador, «Tratado de Protección y Defensa del Consumidor» (Instituto Pacífico, 2019)",
       "Autor, «Protección y Defensa del Consumidor - Jurisprudencia Especializada» (Grijley, 2da Edición, 2019)",
       "Autor, «Protección y Defensa del Consumidor - Jurisprudencia Especializada» (Lex Iuris, 2014)",
-      "Adjunto de Opinión — Diario El Comercio"
+      "Ponente Nacional e Internacional — Diversas áreas de su especialización"
     ],
     affiliation: "Ilustre Colegio de Abogados de Lima"
   },
@@ -152,7 +151,6 @@ export const staffMembers: StaffMember[] = [
       "Derecho Público"
     ],
     education: [
-      { title: "Bachiller en Derecho", institution: "Universidad Peruana de Ciencias Aplicadas (UPC)" },
       { title: "Abogado", institution: "Universidad Peruana de Ciencias Aplicadas (UPC)" },
       { title: "Instructor en Derecho Internacional Humanitario y Derechos Humanos acreditado ante el Ministerio de Defensa del Perú", institution: "Centro del Derecho Internacional Humanitario de las FFAA del Perú" },
       { title: "Especialización en Derecho Procesal Laboral y Derecho Procesal Penal (nueva y anterior ley)", institution: "Colegio de Abogados de Lima" },
@@ -176,7 +174,7 @@ export const staffMembers: StaffMember[] = [
       { title: "Analista", company: "Abogado Área Relaciones Laborales - Southern Peru Copper Corporation – Sucursal del Perú" }
     ],
     academic: [
-      "Coautor — \"Protección y Defensa del Consumidor - Jurisprudencia Especializada\" (Tratado de Protección al Consumidor, Instituto Pacífico, 2019)",
+      "Coautor — «Tratado de Protección al Consumidor» (Instituto Pacífico, 2019)",
       "Autor de artículos y ensayos en distintas materias legales — Derecho Corporativo, Derecho Laboral, Derecho Minero, Derecho Comercial, Buen Gobierno Corporativo, Derecho Digital e Industrias 4.0 y Responsabilidad Social, tanto en revistas como medios digitales nacionales e internacionales."
     ],
     affiliation: "Ilustre Colegio de Abogados de Lima"
@@ -184,7 +182,7 @@ export const staffMembers: StaffMember[] = [
   {
     id: "erick-caceres",
     name: "Erick Cáceres Buleje",
-    role: "Especialista en Asuntos Administrativos y Municipales",
+    role: "Abogado Asociado",
     image: "/images/staff/Erick Cáceres(gris).webp",
     objectPosition: "top",
     specialties: [
@@ -197,7 +195,7 @@ export const staffMembers: StaffMember[] = [
       "Procesal"
     ],
     education: [
-      { title: "Bachiller en Derecho", institution: "Universidad Tecnológica del Perú" },
+      { title: "Abogado", institution: "Universidad Tecnológica del Perú" },
       { title: "Diploma de Especialización en Derecho Tributario y Procedimiento de Ejecución Coactiva", institution: "Ilustre Colegio de Abogados de Lima" }
     ],
     experience: [
@@ -208,34 +206,9 @@ export const staffMembers: StaffMember[] = [
     academic: []
   },
   {
-    id: "max-carbonel",
-    name: "Max Carbonel Puicón",
-    role: "Consultor Estratégico de Operaciones Empresariales",
-    image: "/images/staff/Max Carbonel(gris).webp",
-    specialties: [
-      "Administración",
-      "Contabilidad",
-      "Finanzas",
-      "Concursal",
-      "Planeamiento Estratégico y Financiero",
-      "Liquidación empresarial"
-    ],
-    education: [
-      { title: "Maestría en Dirección Financiera", institution: "Universidad de Piura" },
-      { title: "Profesional en Administración de Negocios con especialidad en Finanzas", institution: "Universidad San Juan Bautista" },
-      { title: "Diploma de Especialización en Dirección en Finanzas Corporativas", institution: "Universidad ESAN" }
-    ],
-    experience: [
-      { title: "Administrador principal y responsable de Finanzas", company: "Almerco Abogados & Consultores" },
-      { title: "Controller financiero", company: "Consultores A1" },
-      { title: "Asesor en asuntos administrativos, contables y financieros de diversas empresas del mercado nacional e internacional", company: "Independiente" }
-    ],
-    academic: []
-  },
-  {
     id: "hugo-cuadros",
     name: "Hugo Sebastian Cuadros Rodriguez",
-    role: "Abogado Asociado · Asuntos de Mercado",
+    role: "Abogado Asociado",
     image: "/images/staff/Hugo Cuadros(gris).webp",
     specialties: [
       "Derecho Civil",
@@ -329,5 +302,71 @@ export const staffMembers: StaffMember[] = [
       { title: "Auxiliar legal", company: "2do Juzgado de Paz Letrado del Módulo Básico de Justicia de Los Olivos" }
     ],
     academic: []
+  },
+  {
+    id: "max-carbonel",
+    name: "Max Carbonel Puicón",
+    role: "Consultor Estratégico de Operaciones Empresariales",
+    image: "/images/staff/Max Carbonel(gris).webp",
+    specialties: [
+      "Administración",
+      "Contabilidad",
+      "Finanzas",
+      "Concursal",
+      "Planeamiento Estratégico y Financiero",
+      "Liquidación empresarial"
+    ],
+    education: [
+      { title: "Maestría en Dirección Financiera", institution: "Universidad de Piura" },
+      { title: "Profesional en Administración de Negocios con especialidad en Finanzas", institution: "Universidad San Juan Bautista" },
+      { title: "Diploma de Especialización en Dirección en Finanzas Corporativas", institution: "Universidad ESAN" }
+    ],
+    experience: [
+      { title: "Administrador principal y responsable de Finanzas", company: "Almerco Abogados & Consultores" },
+      { title: "Controller financiero", company: "Consultores A1" },
+      { title: "Asesor en asuntos administrativos, contables y financieros de diversas empresas del mercado nacional e internacional", company: "Independiente" }
+    ],
+    academic: []
+  },
+  {
+    id: "anderson-avila",
+    name: "Anderson Abraham Avila Trivelli",
+    role: "Abogado Asociado",
+    image: "/images/staff/Dr_Abraham_02_S.webp",
+    objectPosition: "top",
+    specialties: [
+      "Derecho Penal",
+      "Derecho Procesal Penal y Litigación Oral",
+      "Cibercrimen y Fraude Informático",
+      "Responsabilidad Penal Empresarial",
+      "Delitos contra la Administración Pública"
+    ],
+    education: [
+      { title: "Doctorando en Derecho y Ciencias Penales", institution: "Universidad Nacional Mayor de San Marcos" },
+      { title: "Maestro en Derecho en Ciencias Penales", institution: "Universidad de San Martín de Porres" },
+      { title: "Abogado", institution: "Universidad de San Martín de Porres" }
+    ],
+    courses: [
+      { title: "Gerencia General (PGG)", institution: "CENTRUM PUCP" },
+      { title: "Cibercrimen e Innovación Digital", institution: "Universidad Hartmann" },
+      { title: "Tecnologías Emergentes en Investigación Criminal", institution: "IUPFA" },
+      { title: "Delitos contra la Administración Pública y Corrupción", institution: "ICJ" },
+      { title: "Derecho Minero Ambiental", institution: "Universidad de San Martín de Porres" },
+      { title: "Derecho Procesal Penal y Litigación Oral", institution: "Universidad Inca Garcilaso de la Vega" }
+    ],
+    experience: [
+      { title: "Abogado asesor", company: "A. García Calderón & Abogados S.C.R.L. - Asesoría a entidades públicas, funcionarios y empresas privadas." },
+      { title: "Docente universitario", company: "Universidad Tecnológica del Perú | 2023 - Derecho Laboral y Derecho Procesal Penal y Litigación Oral I y II." },
+      { title: "Docente en capacitación especializada", company: "Dirección de Criminalística de la Policía Nacional del Perú | 2025 - Cadena de custodia aplicada a la contabilidad forense." }
+    ],
+    academic: [
+      "Autor — “Análisis al delito de fraude informático” (Revista Vox Juris, USMP, edición 42-1)",
+      "Ponente y expositor — Sociedad Nacional de Industrias, USMP, ICJ y Policía Nacional del Perú (Temas: responsabilidad penal empresarial, delitos ambientales, contabilidad forense e IA)",
+      "Ponente en webinars de la Sociedad Nacional de Industrias",
+      "Expositor en Diplomado en Derecho e Inteligencia Artificial",
+      "Expositor en la presentación de la revista Vox Juris",
+      "Coach en concurso de Responsabilidad Social de la UTP",
+      "Idiomas — Inglés (Avanzado), Italiano (B2 - CELI 3), Francés (Elemental), Shipibo (Básico)"
+    ]
   }
 ];

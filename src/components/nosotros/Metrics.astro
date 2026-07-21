@@ -1,9 +1,9 @@
 ---
 const metrics = [
-  { value: 10, suffix: "+", label: "AÑOS DE EXPERIENCIA" },
-  { value: 9, suffix: "", label: "ESPECIALIDADES LEGALES" },
-  { value: 200, suffix: "+", label: "CLIENTES ATENDIDOS" },
-  { value: 8, suffix: "", label: "PROFESIONALES EN EL EQUIPO" }
+  { value: 15, prefix: "+", suffix: "", label: "AÑOS DE EXPERIENCIA ACUMULADA" },
+  { value: 500, prefix: "+", suffix: "", label: "RECLAMOS ATENDIDOS" },
+  { value: 795, prefix: "+", suffix: "", label: "UIT DE CONTINGENCIAS EVITADAS EN PROTECCIÓN AL CONSUMIDOR" },
+  { value: 150, prefix: "+", suffix: "", label: "UIT EN RIESGOS SANCIONADORES MITIGADOS EN PROTECCIÓN DE DATOS PERSONALES" }
 ];
 ---
 <section class="py-20 md:py-28 bg-white" id="metrics">
@@ -12,10 +12,11 @@ const metrics = [
       {metrics.map((metric, index) => (
         <div class="flex flex-col items-center justify-center text-center pt-8 md:pt-0 px-4 data-fade-up-scroll" style={`transition-delay: ${(index * 100)}ms;`}>
           <div class="flex items-center justify-center text-mc-primary font-display font-light text-6xl md:text-7xl lg:text-[80px] mb-4 leading-none">
+            <span>{metric.prefix}</span>
             <span class="data-counter" data-target={metric.value}>0</span>
             <span>{metric.suffix}</span>
           </div>
-          <p class="text-mc-medium text-[11px] md:text-xs font-bold uppercase tracking-widest max-w-[160px] leading-relaxed">
+          <p class="text-mc-medium text-[11px] md:text-xs font-bold uppercase tracking-widest max-w-[240px] mx-auto leading-relaxed">
             {metric.label}
           </p>
         </div>

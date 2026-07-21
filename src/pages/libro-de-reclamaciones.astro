@@ -26,7 +26,7 @@ const steps = [
           </h1>
           <p class="text-white/70 text-[15px] md:text-base leading-relaxed animate-fade-in-up" style="animation-delay: 100ms;">
             Damián Medina &amp; Asociados SCRL, con RUC: 20602980848, con domicilio fiscal en
-            Pasaje Las Brisas 108, Distrito de La Victoria, Provincia y Departamento de Lima.
+            Avenida El Polo 401, Oficina 303, Urb. El Derby de Monterrico, Santiago de Surco, Lima.
           </p>
         </div>
       </div>
@@ -73,41 +73,41 @@ const steps = [
 
                 <div class="claim-card__body">
                   <div class="form-group relative sm:col-span-2">
-                    <label for="nombres" class="form-label">Nombres y apellidos <span class="text-mc-primary">*</span></label>
+                    <label for="nombres" class="form-label">Nombres y apellidos</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <input type="text" id="nombres" name="nombres" required class="form-input" placeholder="Escribe tus nombres completos" />
+                      <input type="text" id="nombres" name="nombres" class="form-input" placeholder="Escribe tus nombres completos" />
                       <div class="focus-line"></div>
                     </div>
                   </div>
 
                   <div class="form-group relative">
-                    <label for="documento" class="form-label">DNI / CE / RUC <span class="text-mc-primary">*</span></label>
+                    <label for="documento" class="form-label">DNI / CE / RUC</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <input type="text" id="documento" name="documento" required class="form-input" placeholder="N.° de documento" />
+                      <input type="text" id="documento" name="documento" class="form-input" placeholder="N.° de documento" />
                       <div class="focus-line"></div>
                     </div>
                   </div>
 
                   <div class="form-group relative">
-                    <label for="telefono" class="form-label">Teléfono / Celular <span class="text-mc-primary">*</span></label>
+                    <label for="telefono" class="form-label">Teléfono / Celular</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <input type="tel" id="telefono" name="telefono" required class="form-input" placeholder="+51 999 999 999" />
+                      <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="+51 999 999 999" />
                       <div class="focus-line"></div>
                     </div>
                   </div>
 
                   <div class="form-group relative">
-                    <label for="email" class="form-label">Correo electrónico <span class="text-mc-primary">*</span></label>
+                    <label for="email" class="form-label">Correo electrónico</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <input type="email" id="email" name="email" required class="form-input" placeholder="ejemplo@correo.com" />
+                      <input type="email" id="email" name="email" class="form-input" placeholder="ejemplo@correo.com" />
                       <div class="focus-line"></div>
                     </div>
                   </div>
 
                   <div class="form-group relative">
-                    <label for="direccion" class="form-label">Dirección <span class="text-mc-primary">*</span></label>
+                    <label for="direccion" class="form-label">Dirección</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <input type="text" id="direccion" name="direccion" required class="form-input" placeholder="Av., calle, distrito..." />
+                      <input type="text" id="direccion" name="direccion" class="form-input" placeholder="Av., calle, distrito..." />
                       <div class="focus-line"></div>
                     </div>
                   </div>
@@ -135,10 +135,10 @@ const steps = [
 
                 <div class="claim-card__body">
                   <div class="sm:col-span-2">
-                    <span class="form-label block mb-3">Tipo de bien contratado <span class="text-mc-primary">*</span></span>
+                    <span class="form-label block mb-3">Tipo de bien contratado</span>
                     <div class="flex flex-wrap gap-3" role="radiogroup" aria-label="Tipo de bien contratado">
                       <label class="option-pill">
-                        <input type="radio" name="tipo-bien" value="producto" class="sr-only" required />
+                        <input type="radio" name="tipo-bien" value="producto" class="sr-only" />
                         <span class="option-pill__label">Producto</span>
                       </label>
                       <label class="option-pill">
@@ -149,9 +149,9 @@ const steps = [
                   </div>
 
                   <div class="form-group relative sm:col-span-2">
-                    <label for="descripcion-bien" class="form-label">Descripción del producto o servicio <span class="text-mc-primary">*</span></label>
+                    <label for="descripcion-bien" class="form-label">Descripción del producto o servicio</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <textarea id="descripcion-bien" name="descripcion-bien" rows="3" required class="form-input resize-y min-h-24" placeholder="Describe brevemente el producto o servicio contratado..."></textarea>
+                      <textarea id="descripcion-bien" name="descripcion-bien" rows="3" class="form-input resize-y min-h-24" placeholder="Describe brevemente el producto o servicio contratado..."></textarea>
                       <div class="focus-line"></div>
                     </div>
                   </div>
@@ -179,10 +179,10 @@ const steps = [
 
                 <div class="claim-card__body">
                   <div class="sm:col-span-2">
-                    <span class="form-label block mb-3">Tipo de solicitud <span class="text-mc-primary">*</span></span>
+                    <span class="form-label block mb-3">Tipo de solicitud</span>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="radiogroup" aria-label="Tipo de solicitud">
                       <label class="claim-option">
-                        <input type="radio" name="tipo-solicitud" value="reclamo" class="sr-only" required />
+                        <input type="radio" name="tipo-solicitud" value="reclamo" class="sr-only" />
                         <div class="claim-option__card">
                           <span class="claim-option__radio" aria-hidden="true"></span>
                           <div>
@@ -205,17 +205,17 @@ const steps = [
                   </div>
 
                   <div class="form-group relative sm:col-span-2">
-                    <label for="detalle" class="form-label">Detalle de la reclamación <span class="text-mc-primary">*</span></label>
+                    <label for="detalle" class="form-label">Detalle de la reclamación</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <textarea id="detalle" name="detalle" rows="4" required class="form-input resize-y min-h-28" placeholder="Cuéntanos con el mayor detalle posible qué sucedió..."></textarea>
+                      <textarea id="detalle" name="detalle" rows="4" class="form-input resize-y min-h-28" placeholder="Cuéntanos con el mayor detalle posible qué sucedió..."></textarea>
                       <div class="focus-line"></div>
                     </div>
                   </div>
 
                   <div class="form-group relative sm:col-span-2">
-                    <label for="pedido" class="form-label">Pedido del consumidor <span class="text-mc-primary">*</span></label>
+                    <label for="pedido" class="form-label">Pedido del consumidor</label>
                     <div class="relative overflow-hidden rounded-md">
-                      <textarea id="pedido" name="pedido" rows="3" required class="form-input resize-y min-h-24" placeholder="¿Qué solución esperas de nosotros?"></textarea>
+                      <textarea id="pedido" name="pedido" rows="3" class="form-input resize-y min-h-24" placeholder="¿Qué solución esperas de nosotros?"></textarea>
                       <div class="focus-line"></div>
                     </div>
                   </div>
@@ -523,7 +523,7 @@ const steps = [
     btnText?.classList.add('opacity-0');
     btnSpinner?.classList.remove('opacity-0');
 
-    fetch("https://formsubmit.co/ajax/odamian@mclegales.com", {
+    fetch("https://formsubmit.co/ajax/info@mclegales.com", {
       method: "POST",
       body: new FormData(form),
       headers: { 'Accept': 'application/json' }
