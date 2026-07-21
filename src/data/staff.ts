@@ -331,7 +331,7 @@ export const staffMembers: StaffMember[] = [
   {
     id: "anderson-avila",
     name: "Anderson Abraham Avila Trivelli",
-    role: "Abogado Asociado",
+    role: "Consultor Legal Externo",
     image: "/images/staff/Dr_Abraham_02_S.webp",
     objectPosition: "top",
     specialties: [
