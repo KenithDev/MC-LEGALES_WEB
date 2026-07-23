@@ -210,6 +210,7 @@ export const staffMembers: StaffMember[] = [
     name: "Hugo Sebastian Cuadros Rodriguez",
     role: "Abogado Asociado",
     image: "/images/staff/Hugo Cuadros(gris).webp",
+    linkedin: "https://www.linkedin.com/in/hcuadrosr",
     specialties: [
       "Derecho Civil",
       "Derecho Penal",
@@ -219,6 +220,7 @@ export const staffMembers: StaffMember[] = [
       "Litigios y Controversias"
     ],
     education: [
+      { title: "Maestrando del Programa de estudios: Máster Oficial en Derecho Privado Patrimonial", institution: "Universidad de Salamanca - Universidad Pública de Navarra" },
       { title: "Abogado (Mención: Excelente)", institution: "Universidad Católica Sedes Sapientiae" },
       { title: "Bachiller en Derecho", institution: "Universidad Católica Sedes Sapientiae" }
     ],
@@ -240,7 +242,8 @@ export const staffMembers: StaffMember[] = [
       "Tesis — «El uso de la inteligencia artificial en la administración de justicia peruana»",
       "Reconocimiento — Ganador de concurso de artículos jurídicos",
       "Reconocimiento — 2° lugar en concurso de ensayos – CONADIS"
-    ]
+    ],
+    affiliation: "Ilustre Colegio de Abogados de Lima"
   },
   {
     id: "leticia-villafuerte",
@@ -256,7 +259,7 @@ export const staffMembers: StaffMember[] = [
       "Litigios y Controversias"
     ],
     education: [
-      { title: "Egresada (Mención: Tercio Superior)", institution: "Universidad Tecnológica del Perú" }
+      { title: "Bachiller en Derecho (Mención: Tercio Superior)", institution: "Universidad Tecnológica del Perú" }
     ],
     courses: [
       { title: "Curso de conciliación extrajudicial", institution: "CIADERCO (2021)" },

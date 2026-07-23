@@ -268,7 +268,7 @@ export const especialidades: Especialidad[] = [
     title: "Derecho Administrativo",
     heroImage: "/images/servicios/derechoadministrativoHero.webp",
     sidebarImage: "/images/servicios/derechoadministrativoSidebar.webp",
-    breakImage: "/images/servicios/DerechoAdministrativo.webp",
+    breakImage: "/images/servicios/derechoadministrativo.webp",
     ctaImage: "/images/servicios/derechoadministrativoCTA.webp",
     categories: [
       {
