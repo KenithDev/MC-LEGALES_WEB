@@ -471,6 +471,7 @@ export const especialidades: Especialidad[] = [
         items: [
           { text: "Transferencia de Banco de Datos Personales a terceros" },
           { text: "Atención de Derechos ARCO" },
+          { text: "Designación de Oficial de Datos Personales debidamente certificado" },
         ],
       },
       {
@@ -870,7 +871,7 @@ export const especialidades: Especialidad[] = [
         id: "representacion-legal",
         name: "Representación legal",
         items: [
-          { text: "Litigios administrativos (Indecopi y SBS)" },
+          { text: "Litigios administrativos (Indecopi)" },
           { text: "Litigios arbitrales" },
           { text: "Litigios judiciales" },
         ],
